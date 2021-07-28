@@ -28,7 +28,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --path $MODEL \
             --beam 5 | tee $TEST/test.translation
 
-grep ^H $TEST/test.translation| cut -f3 > test.result
+grep ^H $TEST/test.translation| cut -f3 > $TEST/test.result
 
 # the size of a test file is 1268
 cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $HYP_VI
