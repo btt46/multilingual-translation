@@ -92,7 +92,7 @@ if [ ! -d $BIN_DATA ]; then
     fairseq-preprocess -s src -t tgt \
 				--destdir $BIN_DATA \
 				--trainpref $BPE_DATA/train \
-				--validpref $BPE_DATA/dev \
+				--validpref $BPE_DATA/valid \
 				--testpref $BPE_DATA/test \
 				--joined-dictionary \
 				--workers 32 
