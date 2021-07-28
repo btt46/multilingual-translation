@@ -45,8 +45,8 @@ for SRC in en vi; do
         if [ $SRC != $TGT ]; then
             echo "PREPROCESSING $SRC <> $TGT DATA: $PWD"
             for SET in $DATA_NAME ; do
-                $NORM  < ${DATA}/${SET}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
-                $NORM  < ${DATA}/${SET}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="${TGT}2${SRC}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+                $NORM  < ${DATA}/${SET}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="<${SRC}2${TGT}>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+                $NORM  < ${DATA}/${SET}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="<${TGT}2${SRC}>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
 
                 $NORM < ${DATA}/${SET}.$TGT | $TOK -l $TGT -q | $DEES >> ${PROCESSED_DATA}/${SET}.tgt
                 $NORM < ${DATA}/${SET}.$SRC | $TOK -l $SRC -q | $DEES >> ${PROCESSED_DATA}/${SET}.tgt
