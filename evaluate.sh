@@ -1,14 +1,19 @@
 #!/bin/bash
 
 GPUS=$1
+
+# prepare data for evaluating a model
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 BIN_DATA=$DATA_FOLDER/bin-data
 
+# The model used for evaluate
 MODEL=$PWD/models/model/checkpoint_best.pt
+
 
 BLEU=$PWD/mosesdecoder/scripts/generic/multi-bleu.perl
 
+# test data
 mkdir -p $PWD/test
 TEST=$PWD/test
 
