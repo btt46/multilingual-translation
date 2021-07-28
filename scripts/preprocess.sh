@@ -70,8 +70,8 @@ if [ ! -d $BPE_DATA ]; then
     mkdir $BPE_DATA
 
     for SET in train dev test; do
-        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < $DATA/${SET}.src > $BPE_DATA/${SET}.src 
-        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < $DATA/${SET}.tgt > $BPE_DATA/${SET}.tgt
+        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.src > $BPE_DATA/${SET}.src 
+        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.tgt > $BPE_DATA/${SET}.tgt
     done
 fi
 
