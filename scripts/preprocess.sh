@@ -40,7 +40,7 @@ done
 # prepare data for the bidirectional model
 for SRC in en vi; do
     for TGT in en vi; do
-        if [$SRC != $TGT]; then
+        if [ $SRC != $TGT ]; then
             echo "PREPROCESSING $SRC <> $TGT DATA: $PWD"
             for SET in train dev test; do
                 $NORM  < ${DATA}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
