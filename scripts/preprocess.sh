@@ -43,8 +43,8 @@ for SRC in en vi; do
         if [$SRC != $TGT]; then
             echo "PREPROCESSING $SRC <> $TGT DATA: $PWD"
             for SET in train dev test; do
-                $NORM  < ${DATA}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${SET}.src
-                $NORM  < ${DATA}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="${TGT}2${SRC}" '{ print tgt_tag" "$0 }' >> ${SET}.src
+                $NORM  < ${DATA}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+                $NORM  < ${DATA}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="${TGT}2${SRC}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
             done
         fi
     done
@@ -55,7 +55,7 @@ done
 if [ ! -d $BPE_MODEL ]; then  
   mkdir $BPE_MODEL
   echo "LEARNING BPE MODEL: $BPE_MODEL"
-  subword-nmt learn-joint-bpe-and-vocab --input $DATA/train.src $DATA/train.tgt \
+  subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
 					-s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
 					--write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
 fi
