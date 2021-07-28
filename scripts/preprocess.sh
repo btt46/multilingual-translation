@@ -46,6 +46,7 @@ for SRC in en vi; do
                 $NORM  < ${DATA}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${SET}.src
                 $NORM  < ${DATA}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="${TGT}2${SRC}" '{ print tgt_tag" "$0 }' >> ${SET}.src
             done
+        fi
     done
 
 done
