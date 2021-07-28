@@ -14,7 +14,7 @@ REF_VI=$DATA_FOLDER/data/test.vi
 mkdir -p $PWD/test
 TEST=$PWD/test
 
-CUDA_VISIBLE_DEVICES=GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive \
+CUDA_VISIBLE_DEVICES=GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $PROCESSED_DATA/test.src \
             --path MODEL \
             --beam 5 | tee $TEST/test.result
