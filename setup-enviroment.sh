@@ -3,7 +3,7 @@
 EXPDIR=$PWD
 
 # mosesdecoder
-if [ ! -d $EXPDIR/mosesdecoder]; then
+if [ ! -d $EXPDIR/mosesdecoder ]; then
     echo 'Cloning Moses github repository (for tokenization scripts)...'
     git clone https://github.com/moses-smt/mosesdecoder.git
 fi
