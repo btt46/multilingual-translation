@@ -36,9 +36,9 @@ cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $HYP_EN
 
 # English to Vietnamese
 echo "En > Vi"
-env LC_ALL=en_US.UTF-8 perl BLEU REF_VI < $HYP_VI
+env LC_ALL=en_US.UTF-8 perl BLEU $REF_VI < $HYP_VI
 
 # Vietnamese to English
 echo "Vi > En"
-env LC_ALL=en_US.UTF-8 perl BLEU REF_EN < $HYP_EN
+env LC_ALL=en_US.UTF-8 perl BLEU $REF_EN < $HYP_EN
 
