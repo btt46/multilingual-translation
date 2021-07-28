@@ -63,7 +63,7 @@ for SET in $DATA_NAME ; do
     $NORM  < ${DATA}/${SET}.en | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="<${SRC}2${TGT}>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
     cat ${DATA}/${SET}.vi | awk -vtgt_tag="<${TGT}2${SRC}>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
 
-    cat < ${DATA}/${SET}.vi | $TOK -l $TGT -q | $DEES >> ${PROCESSED_DATA}/${SET}.tgt
+    cat ${DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
     $NORM < ${DATA}/${SET}.en | $TOK -l $SRC -q | $DEES >> ${PROCESSED_DATA}/${SET}.tgt
 done
 
