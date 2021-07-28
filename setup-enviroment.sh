@@ -13,7 +13,7 @@ if [ ! -d $EXPDIR/fairseq ]; then
     echo 'Cloning fairseq repository (for training models)...'
     git clone https://github.com/pytorch/fairseq
     cd fairseq
-    pip install --editable ./
+    pip3.6 install --editable ./
     cd ../
 fi
 
@@ -21,4 +21,4 @@ fi
 # subword-nmt 
 # git clone https://github.com/rsennrich/subword-nmt.git
 echo 'Cloning Subword NMT repository (for BPE pre-processing)...'
-pip install subword-nmt
+pip3.6 install subword-nmt
