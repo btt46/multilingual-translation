@@ -3,7 +3,10 @@
 GPUS=$1
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
+BIN_DATA=$DATA_FOLDER/bin-data
+
 MODEL=$PWD/models/model/checkpoint_best.pt
+
 BLEU=$PWD/mosesdecoder/scripts/generic/multi-bleu.perl
 REF_EN=$DATA_FOLDER/data/test.en
 REF_VI=$DATA_FOLDER/data/test.vi
