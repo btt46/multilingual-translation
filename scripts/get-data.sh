@@ -4,7 +4,7 @@ set -e
 
 EXPDIR=$PWD 
 DATA=$EXPDIR/data 
-mdkir -p $DATA/iwlst15
+mkdir -p $DATA/iwlst15
 
 pushd $DATA/iwlst15
     wget "https://nlp.stanford.edu/projects/nmt/data/iwslt15.en-vi/tst2012.en"  
