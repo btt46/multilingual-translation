@@ -31,6 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--no-epoch-checkpoints \
 			--validate-interval 5 \
 			--save-dir $MODEL \
-			> $LOG 2> $LOG
+			2>&1 | tee $LOG
 
 echo "TRAINING LOG: $LOG"
