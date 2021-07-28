@@ -32,7 +32,7 @@ mkdir -p $PROCESSED_DATA
 python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.en ${DATA}/train.en
 python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.vi ${DATA}/train.vi
 
-for lang in "en vi"; do
+for lang in en vi; do
     cp ${RAW_DATA}/tst2012.${lang} ${DATA}/valid.${lang}
     cp ${RAW_DATA}/tst2013.${lang} ${DATA}/test.${lang}
 done
