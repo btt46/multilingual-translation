@@ -10,6 +10,8 @@ LOG=$PWD/log/log.train
 
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
+            --log-interval 100 \
+			--log-format json \
 			--max-epoch 30 \
     		--optimizer adam --lr 0.0001 \
 			--clip-norm 0.0 \
@@ -21,7 +23,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--criterion label_smoothed_cross_entropy \
 			--label-smoothing 0.1 \
 			--lr-scheduler inverse_sqrt \
-			--ddp-backend=no_c10d \
 			--warmup-updates 4000 \
 			--warmup-init-lr '1e-08' \
 			--adam-betas '(0.9, 0.98)' \
@@ -29,8 +30,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
-			--no-epoch-checkpoints \
-			--validate-interval 5 \
 			--save-dir $MODEL \
 			2>&1 | tee $LOG
 
