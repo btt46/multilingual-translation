@@ -16,7 +16,7 @@ TEST=$PWD/test
 
 CUDA_VISIBLE_DEVICES=GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $PROCESSED_DATA/test.src \
-            --path MODEL \
+            --path $MODEL \
             --beam 5 | tee $TEST/test.result
 
 cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > test.result.vi
