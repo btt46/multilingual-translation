@@ -12,9 +12,9 @@ fi
 if [ ! -d $EXPDIR/fairseq ]; then 
     echo 'Cloning fairseq repository (for training models)...'
     git clone https://github.com/pytorch/fairseq
-    pushd fairseq
+    cd fairseq
     pip install --editable ./
-    popd
+    cd ../
 fi
 
 
