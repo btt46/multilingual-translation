@@ -25,6 +25,9 @@ BPE_DATA=$PWD/data/bpe-data
 TEXT_PROCESS=$PWD/text-process
 # ***************************************
 
+mkdir -p $DATA
+mkdir -p $PROCESSED_DATA
+
 # remove rarewords and exporting a data
 python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.en ${DATA}/train.en
 python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.vi ${DATA}/train.vi
