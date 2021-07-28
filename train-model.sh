@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$GPUS=$1
+GPUS=$1
 DATA=$PWD/data/bin-data	
 MODEL=$PWD/models/model	
 mkdir -p $MODEL
