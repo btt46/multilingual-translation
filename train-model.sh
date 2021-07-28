@@ -6,7 +6,7 @@ DATA=$PWD/data/bin-data
 MODEL=$PWD/models/model	
 mkdir -p $MODEL
 mkdir -p $PWD/log
-LOG=$PWD/log/log.train
+LOG=$PWD/log
 
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
@@ -31,6 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
 			--save-dir $MODEL \
-			2>&1 | tee $LOG
+			2>&1 | tee $LOG/log.train
 
 echo "TRAINING LOG: $LOG"
