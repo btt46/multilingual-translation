@@ -19,6 +19,7 @@ fi
 
 
 # subword-nmt 
-# git clone https://github.com/rsennrich/subword-nmt.git
+
 echo 'Cloning Subword NMT repository (for BPE pre-processing)...'
-pip3.6 install subword-nmt
+git clone https://github.com/rsennrich/subword-nmt.git
+# pip3.6 install subword-nmt
