@@ -21,6 +21,7 @@ RAW_DATA=$DATA_FOLDER/iwslt15
 DATA=$DATA_FOLDER/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 BPE_DATA=$PWD/data/bpe-data
+BIN_DATA=$PWD/data/bin-data
 
 DATA_NAME="train valid test"
 
