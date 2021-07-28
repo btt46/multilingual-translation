@@ -22,6 +22,8 @@ DATA=$DATA_FOLDER/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 BPE_DATA=$PWD/data/bpe-data
 
+DATA_NAME="train valid test"
+
 TEXT_PROCESS=$PWD/text-process
 # ***************************************
 
@@ -42,7 +44,7 @@ for SRC in en vi; do
     for TGT in en vi; do
         if [ $SRC != $TGT ]; then
             echo "PREPROCESSING $SRC <> $TGT DATA: $PWD"
-            for SET in train dev test; do
+            for SET in $DATA_NAME ; do
                 $NORM  < ${DATA}.$SRC | $TOK -l $SRC -q | $DEES | awk -vtgt_tag="${SRC}2${TGT}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
                 $NORM  < ${DATA}.$TGT | $TOK -l $TGT -q | $DEES | awk -vtgt_tag="${TGT}2${SRC}" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
             done
