@@ -5,6 +5,7 @@ DATA=$PWD/data/bin-data
 MODEL=$PWD/models/model	
 mkdir -p $MODEL
 LOG=$PWD/log/log.train
+mkdir -p $LOG
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--max-epoch 30 \
