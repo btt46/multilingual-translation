@@ -11,7 +11,7 @@ BIN_DATA=$DATA_FOLDER/bin-data
 MODEL=$PWD/models/model/checkpoint_best.pt
 
 
-BLEU=$PWD/mosesdecoder/scripts/generic/multi-bleu.perl
+BLEU=$PWD/multi-bleu.perl
 
 # test data
 mkdir -p $PWD/test
