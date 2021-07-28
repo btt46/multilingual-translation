@@ -18,7 +18,7 @@ REF_VI=$DATA_FOLDER/data/test.vi
 HYP_EN=$TEST/test.en
 HYP_VI=$TEST/test.vi
 
-CUDA_VISIBLE_DEVICES=GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $PROCESSED_DATA/test.src \
             --path $MODEL \
             --beam 5 | tee $TEST/test.translation
