@@ -1,6 +1,7 @@
 #!/bin/bash
 
 GPUS=$1
+echo "GPU=${GPUS}"
 DATA=$PWD/data/bin-data	
 MODEL=$PWD/models/model	
 mkdir -p $MODEL
