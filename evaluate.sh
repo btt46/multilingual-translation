@@ -6,6 +6,7 @@ GPUS=$1
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 BIN_DATA=$DATA_FOLDER/bin-data
+BPE_DATA=$DATA_FOLDER/bpe-data
 
 # The model used for evaluate
 MODEL=$PWD/models/model/checkpoint_best.pt
@@ -20,11 +21,11 @@ TEST=$PWD/test
 REF_EN=$DATA_FOLDER/data/test.en
 REF_VI=$DATA_FOLDER/data/test.vi
 
-HYP_EN=$TEST/test.en
+HYP_EN=$TEST/test.detok.en
 HYP_VI=$TEST/test.vi
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-            --input $PROCESSED_DATA/test.src \
+            --input $BPE_DATA/test.src \
             --path $MODEL \
             --beam 5 | tee $TEST/test.translation
 
