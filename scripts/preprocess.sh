@@ -79,7 +79,7 @@ for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "${set}..."
-        TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
+        $TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
     done
 done
 
