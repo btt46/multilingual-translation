@@ -11,7 +11,7 @@ NORM=$MOSES/tokenizer/normalize-punctuation.perl
 TOK=$MOSES/tokenizer/tokenizer.perl
 DEES=$MOSES//tokenizer/deescape-special-chars.perl
 TRUECASER_TRAIN=$MOSES/recaser/train-truecaser.perl
-TRUECASER=$MOSES/recaser/truecaser.perl
+TRUECASER=$MOSES/recaser/truecase.perl
 
 FARISEQ=$PWD/fairseq
 
