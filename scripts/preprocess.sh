@@ -56,13 +56,15 @@ for lang in en vi; do
     for set in $DATA_NAME; do
         echo "$set..."
         python3.6 ${TEXT_PROCESS}/normalize.py ${DATA}/${set}.${lang} > ${NORMALIZED_DATA}/${set}.${lang}
+    done
+done
 
 # Tokenization
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
     $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
     python3.6 ${TEXT_PROCESS}/tokenize.vi  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
-
+done
 
 # Truecaser
 echo "=> Truecasing..."
@@ -78,7 +80,8 @@ for lang in en vi; do
     for set in $DATA_NAME; do
         echo "${set}..."
         TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
-
+    done
+done
 
 # prepare data for the bidirectional model
 echo "=> PREPROCESSING en <> vi DATA: $PWD....."
