@@ -66,8 +66,13 @@ for SET in $DATA_NAME ; do
 
 # Truecaser
 echo "=> Truecasing..."
+
+echo "Traning for english..."
 $TRUECASER_TRAIN --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
+
+echo "Traning for vietnamese..."
 $TRUECASER_TRAIN --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
+
 for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
@@ -78,11 +83,11 @@ for lang in en vi; do
 # prepare data for the bidirectional model
 echo "=> PREPROCESSING en <> vi DATA: $PWD....."
 for SET in $DATA_NAME ; do
-    $NORM  < ${DATA}/${SET}.en | $TOK -l en -q | $DEES | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
-    cat ${DATA}/${SET}.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+    cat ${TRUECASED_DATA}/${SET}.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+    cat ${TRUECASED_DATA}/${SET}.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
 
-    cat ${DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
-    $NORM < ${DATA}/${SET}.en | $TOK -l en -q | $DEES >> ${PROCESSED_DATA}/${SET}.tgt
+    cat ${TRUECASED_DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
+    cat ${TRUECASED_DATA}/${SET}.en  >> ${PROCESSED_DATA}/${SET}.tgt
 done
 
 # learn bpe model with training data
