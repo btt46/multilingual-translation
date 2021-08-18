@@ -1,20 +1,17 @@
-import unicodedata
-import sys
+def nfkc_normalize(input_file, output_file):
 
-#Unicode正規化
-def nfkcd(lines):
+    with open(input_file, 'r', encoding="utf-8") as fp:
+        lines = fp.readlines()
+        fp.close()
+
+    new_lines = []
     for line in lines:
-        print(unicodedata.normalize("NFKC", line))
+        line = unicodedata.normalize("NFKD",line)
+        new_lines.append(line)
 
-def main():
-    args = sys.argv
-    if len(args) < 2:
-        print("コーパスを指定してください")
-        sys.exit(1)
-    f = open(args[1], encoding='utf-8')
-    lines = f.read().split('\n')
-    f.close()
-    nfkcd(lines)
+    with open(output_file, 'w',encoding='utf-8') as f:
+        f.writelines(new_lines)
+        f.close()
 
-if __name__ == "__main__":
-    main()
+if __name__=='__main__':
+    nfkc_normalize(sys.argv[1], sys.argv[2])

@@ -55,7 +55,7 @@ for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "$set..."
-        python3.6 ${TEXT_PROCESS}/normalize.py ${DATA}/${set}.${lang} > ${NORMALIZED_DATA}/${set}.${lang}
+        python3.6 ${TEXT_PROCESS}/normalize.py ${DATA}/${set}.${lang}  ${NORMALIZED_DATA}/${set}.${lang}
     done
 done
 
