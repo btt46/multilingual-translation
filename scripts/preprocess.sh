@@ -63,7 +63,7 @@ done
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
     $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
-    python3.6 ${TEXT_PROCESS}/tokenize.vi  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
+    python3.6 ${TEXT_PROCESS}/tokenize-vi.py  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
 done
 
 # Truecaser
