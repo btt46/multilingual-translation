@@ -10,7 +10,8 @@ MOSES=$PWD/mosesdecoder/scripts
 NORM=$MOSES/tokenizer/normalize-punctuation.perl
 TOK=$MOSES/tokenizer/tokenizer.perl
 DEES=$MOSES//tokenizer/deescape-special-chars.perl
-TRUECASER=$MOSES/recaser/train-truecaser.perl
+TRUECASER_TRAIN=$MOSES/recaser/train-truecaser.perl
+TRUECASER=$MOSES/recaser/truecaser.perl
 
 FARISEQ=$PWD/fairseq
 
@@ -54,20 +55,24 @@ for lang in en vi; do
     echo "[$lang]..."
     for set in $DATA_NAME; do
         echo "$set..."
-        python3.6 $TEXT_PROCESS/normalize.py ${DATA}/${set}.${lang} > ${NORMALIZED_DATA}/${set}.${lang}
+        python3.6 ${TEXT_PROCESS}/normalize.py ${DATA}/${set}.${lang} > ${NORMALIZED_DATA}/${set}.${lang}
 
 # Tokenization
 echo "=> tokenize..."
 for SET in $DATA_NAME ; do
     $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
-    python3.6 $TEXT_PROCESS/tokenize.vi  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
+    python3.6 ${TEXT_PROCESS}/tokenize.vi  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
 
 
 # Truecaser
 echo "=> Truecasing..."
-$TRUECASER --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
-$TRUECASER --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
-
+$TRUECASER_TRAIN --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
+$TRUECASER_TRAIN --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
+for lang in en vi; do
+    echo "[$lang]..."
+    for set in $DATA_NAME; do
+        echo "${set}..."
+        TRUECASER --model truecase-model.${lang} < ${TOKENIZED_DATA}/${set}.${lang} > ${TRUECASED_DATA}/${set}.${lang}
 
 
 # prepare data for the bidirectional model
