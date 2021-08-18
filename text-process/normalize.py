@@ -1,3 +1,4 @@
+import sys
 def nfkc_normalize(input_file, output_file):
 
     with open(input_file, 'r', encoding="utf-8") as fp:
