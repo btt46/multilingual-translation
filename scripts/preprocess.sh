@@ -10,6 +10,7 @@ MOSES=$PWD/mosesdecoder/scripts
 NORM=$MOSES/tokenizer/normalize-punctuation.perl
 TOK=$MOSES/tokenizer/tokenizer.perl
 DEES=$MOSES//tokenizer/deescape-special-chars.perl
+TRUECASER=$MOSES/recaser/train-truecaser.perl
 
 FARISEQ=$PWD/fairseq
 
@@ -20,6 +21,9 @@ DATA_FOLDER=$PWD/data
 RAW_DATA=$DATA_FOLDER/iwslt15
 DATA=$DATA_FOLDER/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
+NORMALIZED_DATA=$DATA_FOLDER/normalized
+TOKENIZED_DATA=$DATA_FOLDER/tok
+TRUECASED_DATA=$DATA_FOLDER/truecased
 BPE_DATA=$PWD/data/bpe-data
 BIN_DATA=$PWD/data/bin-data
 
@@ -30,18 +34,44 @@ TEXT_PROCESS=$PWD/text-process
 
 mkdir -p $DATA
 mkdir -p $PROCESSED_DATA
+mkdir -p $NORMALIZED_DATA
+mkdir -p $TOKENIZED_DATA
+mkdir -p $TRUECASED_DATA
 
 # remove rarewords and exporting a data
-python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.en ${DATA}/train.en
-python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.vi ${DATA}/train.vi
+# python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.en ${DATA}/train.en
+# python3.6 ${TEXT_PROCESS}/remove-rare.py ${RAW_DATA}/train.vi ${DATA}/train.vi
 
 for lang in en vi; do
+    cp ${RAW_DATA}/train.${lang} ${DATA}/train.${lang}
     cp ${RAW_DATA}/tst2012.${lang} ${DATA}/valid.${lang}
     cp ${RAW_DATA}/tst2013.${lang} ${DATA}/test.${lang}
 done
 
+# normalization
+echo "=> normalizing..."
+for lang in en vi; do
+    echo "[$lang]..."
+    for set in $DATA_NAME; do
+        echo "$set..."
+        python3.6 $TEXT_PROCESS/normalize.py ${DATA}/${set}.${lang} > ${NORMALIZED_DATA}/${set}.${lang}
+
+# Tokenization
+echo "=> tokenize..."
+for SET in $DATA_NAME ; do
+    $TOK -l en < ${NORMALIZED_DATA}/${SET}.en > ${TOKENIZED_DATA}/${SET}.en
+    python3.6 $TEXT_PROCESS/tokenize.vi  ${NORMALIZED_DATA}/${SET}.vi ${TOKENIZED_DATA}/${SET}.vi
+
+
+# Truecaser
+echo "=> Truecasing..."
+$TRUECASER --model truecase-model.en --corpus ${TOKENIZED_DATA}/train.en
+$TRUECASER --model truecase-model.vi --corpus ${TOKENIZED_DATA}/train.vi
+
+
+
 # prepare data for the bidirectional model
-echo "PREPROCESSING en <> vi DATA: $PWD"
+echo "=> PREPROCESSING en <> vi DATA: $PWD....."
 for SET in $DATA_NAME ; do
     $NORM  < ${DATA}/${SET}.en | $TOK -l en -q | $DEES | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
     cat ${DATA}/${SET}.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
@@ -53,7 +83,7 @@ done
 # learn bpe model with training data
 if [ ! -d $BPE_MODEL ]; then  
   mkdir $BPE_MODEL
-  echo "LEARNING BPE MODEL: $BPE_MODEL"
+  echo "=> LEARNING BPE MODEL: $BPE_MODEL"
   subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
 					-s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
 					--write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
