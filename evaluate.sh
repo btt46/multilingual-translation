@@ -2,6 +2,7 @@
 
 GPUS=$1
 
+MOSES=$PWD/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
 
 # prepare data for evaluating a model
