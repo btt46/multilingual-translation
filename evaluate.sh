@@ -2,11 +2,14 @@
 
 GPUS=$1
 
+DETRUECASER=$MOSES/recaser/detruecase.perl
+
 # prepare data for evaluating a model
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 BIN_DATA=$DATA_FOLDER/bin-data
 BPE_DATA=$DATA_FOLDER/bpe-data
+DETOK=$PWD/scripts/detokenize.py
 
 # The model used for evaluate
 MODEL=$PWD/models/model/checkpoint_best.pt
@@ -21,19 +24,28 @@ TEST=$PWD/test
 REF_EN=$DATA_FOLDER/data/test.en
 REF_VI=$DATA_FOLDER/data/test.vi
 
-HYP_EN=$TEST/test.detok.en
-HYP_VI=$TEST/test.vi
+HYP_EN=$TEST/hyp.en
+HYP_VI=$TEST/hyp.vi
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.src \
             --path $MODEL \
-            --beam 5 | tee $TEST/test.translation
+            --beam 5 | tee $TEST/translation.result
 
-grep ^H $TEST/test.translation| cut -f3 > $TEST/test.result
+grep ^H $TEST/translation.result| cut -f3 > $TEST/test.result
 
-# the size of a test file is 1268
-cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $HYP_VI
-cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $HYP_EN
+# the size of a test file is 1268.
+# 普通文字に戻す
+cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
+cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
+
+# detruecase
+$DETRUECASER < $PWD/test/result.vi > $PWD/test/detruecase.vi
+$DETRUECASER < $PWD/test/result.en > $PWD/test/detruecase.en
+
+# detokenize
+python3.6 $DETOK $PWD/test/detruecase.vi $HYP_VI
+python3.6 $DETOK $PWD/test/detruecase.en $HYP_EN
 
 # English to Vietnamese
 echo "En > Vi"
