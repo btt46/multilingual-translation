@@ -3,7 +3,7 @@ set -e
 
 BPESIZE=5000
 
-DATA_FOLDER=$PWD/data
+DATA_FOLDER=$PWD/da
 TRUECASED_DATA=$DATA_FOLDER/truecased
 ONEWAYDATA=$DATA_FOLDER/oneway
 BPE_DATA=$ONEWAYDATA/bpe-data
@@ -31,7 +31,7 @@ subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/
 DATA_NAME="train valid test"
 for lang in en vi; do
     echo "[$lang]..."
-    for set in $DATA_NAME; do
+    for SET in $DATA_NAME; do
         echo "${set}..."
         subword-nmt apply-bpe -c ${BPE_MODEL}/model.${lang} < ${TRUECASED_DATA}/${SET}.${lang} > $BPE_DATA/${SET}.{lang} 
     done
