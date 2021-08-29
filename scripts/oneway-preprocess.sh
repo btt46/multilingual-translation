@@ -29,22 +29,21 @@ subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/
 subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
 
 DATA_NAME="train valid test"
+
 for lang in en vi; do
     echo "[$lang]..."
     for SET in $DATA_NAME; do
-        echo "${set}..."
-        subword-nmt apply-bpe -c ${BPE_MODEL}/model.${lang} < ${TRUECASED_DATA}/${SET}.${lang} > $BPE_DATA/${SET}.{lang} 
+        echo "${SET}..."
+        subword-nmt apply-bpe -c ${BPE_MODEL}/model.${lang} < ${TRUECASED_DATA}/${SET}.${lang} > ${BPE_DATA}/${SET}.{lang} 
     done
 done
 
 # binarize train/valid/test
-if [ ! -d $BIN_DATA ]; then
-    mkdir $BIN_DATA
-    fairseq-preprocess -s en -t vi \
-				--destdir $BIN_DATA \
-				--trainpref $BPE_DATA/train \
-				--validpref $BPE_DATA/valid \
-				--testpref $BPE_DATA/test \
-				--joined-dictionary \
-				--workers 32 
-fi
+
+fairseq-preprocess -s en -t vi \
+			--destdir $BIN_DATA \
+			--trainpref $BPE_DATA/train \
+			--validpref $BPE_DATA/valid \
+			--testpref $BPE_DATA/test \
+			--joined-dictionary \
+			--workers 32 
