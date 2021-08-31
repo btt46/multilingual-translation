@@ -32,7 +32,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --beam 5 | tee ${TEST}/translation.result.${TGT}
 
 grep ^H $TEST/translation.result.${TGT}| cut -f3 > $TEST/test.result
-cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > ${TEST}/test.result.${TGT}
+cat $TEST/test.result | sed -r 's/(@@ )|(@@ ?$)//g' > ${TEST}/test.result.${TGT}
 
 # detruecase
 $DETRUECASER < ${TEST}/test.result.${TGT} > ${TEST}/detruecase.${TGT}
