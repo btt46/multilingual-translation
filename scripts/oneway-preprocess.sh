@@ -2,6 +2,8 @@
 set -e
 
 BPESIZE=5000
+SRC=$1
+TGT=$2
 
 DATA_FOLDER=$PWD/data
 TRUECASED_DATA=$DATA_FOLDER/truecased
@@ -40,7 +42,7 @@ done
 
 # binarize train/valid/test
 
-fairseq-preprocess -s en -t vi \
+fairseq-preprocess -s ${SRC} -t ${TGT} \
 			--destdir $BIN_DATA \
 			--trainpref $BPE_DATA/train \
 			--validpref $BPE_DATA/valid \
