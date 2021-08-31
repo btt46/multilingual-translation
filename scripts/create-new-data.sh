@@ -37,8 +37,8 @@ mkdir -p $NEW_BPE_MODEL
 # prepare data for the bidirectional model
 echo "=> PREPROCESSING en <> vi DATA: $PWD....."
 
-cat ${BIN_DATA}/train.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.en
-cat ${BIN_DATA}/train.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.vi
+cat ${BPE_DATA}/train.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.en
+cat ${BPE_DATA}/train.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.vi
 
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
