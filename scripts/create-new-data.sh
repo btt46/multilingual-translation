@@ -52,7 +52,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --path $MODEL \
             --beam 5 | tee $NEW_DATA/result.en
 
-# grep ^H ${NEW_DATA}/result.vi | cut -f3 > ${NEW_DATA}/data.vi
+grep ^H ${NEW_DATA}/result.vi | cut -f3 > ${NEW_DATA}/data.vi
 grep ^H ${NEW_DATA}/result.en | cut -f3 > ${NEW_DATA}/data.en
 
 # 普通文字に戻す
