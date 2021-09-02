@@ -38,11 +38,11 @@ mkdir -p $NEW_DATA
 mkdir -p $NEW_PROCESSED_DATA
 mkdir -p $NEW_BPE_MODEL
 
-if $SRC == "en" ; then
+if [$SRC = en] ; then
 	TAG="<e2v"
 fi
 
-if $SRC == "vi"; then
+if [$SRC = vi] ; then
 	TAG="<v2e"
 fi 
 
