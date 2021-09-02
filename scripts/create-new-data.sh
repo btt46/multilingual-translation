@@ -5,6 +5,8 @@ BPESIZE=5000
 GPUS=$1
 SRC=$2
 TGT=$3
+echo "GPU: $GPUS"
+echo "$SRC -> $TGT"
 # the directories for new data 
 DATA_FOLDER=$PWD/data
 NEW_DATA_FOLDER=$DATA_FOLDER/new-data
