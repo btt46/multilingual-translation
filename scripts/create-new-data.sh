@@ -65,10 +65,12 @@ for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
 done
 
-cat  ${TRUECASED_DATA}/train.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
+cat  ${NEW_DATA}/train.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 cat $NEW_DATA/new.vi >> $NEW_PROCESSED_DATA/train.tgt
 
-cat  ${TRUECASED_DATA}/train.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
+cat  ${NEW_DATA}/train.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 cat $NEW_DATA/new.en >> $NEW_PROCESSED_DATA/train.tgt
 
 
