@@ -46,9 +46,9 @@ if [ "$1" = "vi" ] ; then
 	TAG="<v2e>"
 fi 
 
-echo "$TAG"
+echo "${TAG}"
 
-cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="$TAG" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
+cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
