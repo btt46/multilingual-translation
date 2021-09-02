@@ -61,8 +61,8 @@ mkdir -p $NEW_BPE_MODEL
 
 # copy processed-data to new processed data
 for SET in $DATA_NAME ; do
-	cat $PROCESSED_DATA/${SET}.src >> $NEW_PROCESSED_DATA/${SET}.src
-	cat $PROCESSED_DATA/${SET}.tgt >> $NEW_PROCESSED_DATA/${SET}.tgt
+	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src
+	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
 done
 
 cat  ${TRUECASED_DATA}/train.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
