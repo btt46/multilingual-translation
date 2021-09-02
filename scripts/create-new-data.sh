@@ -56,8 +56,8 @@ mkdir -p $NEW_BPE_MODEL
 # grep ^H ${NEW_DATA}/result.en | cut -f3 > ${NEW_DATA}/data.en
 
 # 普通文字に戻す
-cat ${NEW_DATA}/data.vi | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.vi
-cat ${NEW_DATA}/data.en  | sed -r 's/(@@ )|(@@ ?$)//g' > $NEW_DATA/new.en
+# cat ${NEW_DATA}/data.vi | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.vi
+# cat ${NEW_DATA}/data.en  | sed -r 's/(@@ )|(@@ ?$)//g' > $NEW_DATA/new.en
 
 # copy processed-data to new processed data
 for SET in $DATA_NAME ; do

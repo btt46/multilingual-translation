@@ -8,12 +8,12 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 # prepare data for evaluating a model
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
-BIN_DATA=$DATA_FOLDER/bin-data
-BPE_DATA=$DATA_FOLDER/bpe-data
+BIN_DATA=$DATA_FOLDER/new-data/bin-data
+BPE_DATA=$DATA_FOLDER/new-data/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model/checkpoint_best.pt
+MODEL=$PWD/models/model2/checkpoint_best.pt
 
 
 BLEU=$PWD/multi-bleu.perl
