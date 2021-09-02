@@ -38,7 +38,15 @@ mkdir -p $NEW_DATA
 mkdir -p $NEW_PROCESSED_DATA
 mkdir -p $NEW_BPE_MODEL
 
-cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
+if SRC == "en" ; then
+	TAG="<e2v"
+fi
+
+if SRC == "vi"; then
+	TAG="<v2e"
+fi 
+
+cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="$TAG" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
