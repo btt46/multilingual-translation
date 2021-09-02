@@ -38,13 +38,15 @@ mkdir -p $NEW_DATA
 mkdir -p $NEW_PROCESSED_DATA
 mkdir -p $NEW_BPE_MODEL
 
-if [ "$SRC" == "en" ] ; then
-	TAG="<e2v"
+if [ "$1" = "en" ] ; then
+	TAG="<e2v>"
 fi
 
-if [ "$SRC" == "vi" ] ; then
-	TAG="<v2e"
+if [ "$1" = "vi" ] ; then
+	TAG="<v2e>"
 fi 
+
+echo "$TAG"
 
 cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="$TAG" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
 
