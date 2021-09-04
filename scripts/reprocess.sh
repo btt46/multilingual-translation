@@ -22,7 +22,7 @@ BIN_DATA=$DATA_FOLDER/bin-data
 ONEWAYDATA=$DATA_FOLDER/oneway
 BPE_DATA=$ONEWAYDATA/bpe-data
 
-DATA_NAME="train valid test"
+
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
 mkdir -p $NEW_DATA_FOLDER
@@ -52,7 +52,7 @@ mkdir -p $NEW_BPE_MODEL
 # cat $NEW_DATA/new.en >> $NEW_PROCESSED_DATA/train.tgt
 
 
-
+DATA_NAME="valid test"
 copy processed-data to new processed data
 for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src
