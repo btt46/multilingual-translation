@@ -59,11 +59,13 @@ for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
 done
 
+echo "old data"
 cat $PROCESSED_DATA/train.src | head -n 133317 |  > $NEW_PROCESSED_DATA/old.src.en
 cat $PROCESSED_DATA/train.src | tail -n +133318 |  > $NEW_PROCESSED_DATA/old.src.vi
 cat $PROCESSED_DATA/train.tgt | head -n 133317 |  > $NEW_PROCESSED_DATA/old.tgt.vi
 cat $PROCESSED_DATA/train.tgt | tail -n +133318 |  > $NEW_PROCESSED_DATA/old.src.en
 
+echo "new data"
 
 cat  $NEW_PROCESSED_DATA/old.src.en > $NEW_PROCESSED_DATA/train.src
 cat  $NEW_PROCESSED_DATA/old.tgt.vi > $NEW_PROCESSED_DATA/train.tgt
