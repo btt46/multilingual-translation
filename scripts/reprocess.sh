@@ -35,8 +35,7 @@ mkdir -p $NEW_PROCESSED_DATA
 mkdir -p $NEW_BPE_MODEL
 
 # prepare data for the bidirectional model
-
-
+# DATA_NAME="train valid test"
 # copy processed-data to new processed data
 # for SET in $DATA_NAME ; do
 # 	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src
@@ -51,6 +50,7 @@ mkdir -p $NEW_BPE_MODEL
 # cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/new.en >> $NEW_PROCESSED_DATA/train.tgt
 
+########################################################
 
 DATA_NAME="valid test"
 # copy processed-data to new processed data
@@ -84,6 +84,7 @@ cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  ${N
 cat ${BPE_DATA}/train.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
 cat ${NEW_DATA}/train.en >> ${NEW_PROCESSED_DATA}/train.tgt
 
+################################################################################################################
 # learn bpe model with training data
 
 echo "=> LEARNING BPE MODEL: $BPE_MODEL"
