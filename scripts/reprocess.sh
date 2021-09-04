@@ -69,7 +69,7 @@ cat ${PROCESSED_DATA}/train.tgt | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old
 echo "new data"
 
 cat  ${NEW_PROCESSED_DATA}/old.src.en > ${NEW_PROCESSED_DATA}/train.src
-cat  ${NEW_PROCESSED_DATA}old.tgt.vi > ${NEW_PROCESSED_DATA}/train.tgt
+cat  ${NEW_PROCESSED_DATA}/old.tgt.vi > ${NEW_PROCESSED_DATA}/train.tgt
 
 
 cat ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  ${NEW_PROCESSED_DATA}/train.src
