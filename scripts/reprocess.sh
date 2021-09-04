@@ -61,10 +61,10 @@ for SET in $DATA_NAME ; do
 done
 
 echo "old data"
-cat ${PROCESSED_DATA}/train.src | head -n 133317 |  > ${NEW_PROCESSED_DATA}/old.src.en
-cat ${PROCESSED_DATA}/train.src | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old.src.vi
-cat ${PROCESSED_DATA}/train.tgt | head -n 133317 |  > ${NEW_PROCESSED_DATA}/old.tgt.vi
-cat ${PROCESSED_DATA}/train.tgt | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old.tgt.en
+cat ${PROCESSED_DATA}/train.src | head -n 133317   > ${NEW_PROCESSED_DATA}/old.src.en
+cat ${PROCESSED_DATA}/train.src | tail -n +133318   > ${NEW_PROCESSED_DATA}/old.src.vi
+cat ${PROCESSED_DATA}/train.tgt | head -n 133317   > ${NEW_PROCESSED_DATA}/old.tgt.vi
+cat ${PROCESSED_DATA}/train.tgt | tail -n +133318   > ${NEW_PROCESSED_DATA}/old.tgt.en
 
 echo "new data"
 
@@ -79,7 +79,6 @@ cat ${NEW_DATA}/train.vi >> ${NEW_PROCESSED_DATA}/train.tgt
 cat  ${NEW_PROCESSED_DATA}/old.src.vi >> ${NEW_PROCESSED_DATA}/train.src
 cat  ${NEW_PROCESSED_DATA}/old.tgt.en >> ${NEW_PROCESSED_DATA}/train.tgt
 
-cat ${BPE_DATA}/train.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
 cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  ${NEW_PROCESSED_DATA}/train.src
 cat ${BPE_DATA}/train.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
 cat ${NEW_DATA}/train.en >> ${NEW_PROCESSED_DATA}/train.tgt
