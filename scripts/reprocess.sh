@@ -64,7 +64,7 @@ echo "old data"
 cat ${PROCESSED_DATA}/train.src | head -n 133317 |  > ${NEW_PROCESSED_DATA}/old.src.en
 cat ${PROCESSED_DATA}/train.src | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old.src.vi
 cat ${PROCESSED_DATA}/train.tgt | head -n 133317 |  > ${NEW_PROCESSED_DATA}/old.tgt.vi
-cat ${PROCESSED_DATA}/train.tgt | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old.src.en
+cat ${PROCESSED_DATA}/train.tgt | tail -n +133318 |  > ${NEW_PROCESSED_DATA}/old.tgt.en
 
 echo "new data"
 
