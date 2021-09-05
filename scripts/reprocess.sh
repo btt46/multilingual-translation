@@ -36,7 +36,8 @@ mkdir -p $NEW_BPE_MODEL
 
 # prepare data for the bidirectional model
 DATA_NAME="train valid test"
-copy processed-data to new processed data
+
+# copy processed-data to new processed data
 for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src
 	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
