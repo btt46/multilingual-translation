@@ -86,8 +86,8 @@ done
 # prepare data for the bidirectional model
 echo "=> PREPROCESSING en <> vi DATA: $PWD....."
 for SET in $DATA_NAME ; do
-    cat ${TRUECASED_DATA}/${SET}.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
-    cat ${TRUECASED_DATA}/${SET}.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+    cat ${TRUECASED_DATA}/${SET}.en | awk -vtgt_tag="@2v@" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
+    cat ${TRUECASED_DATA}/${SET}.vi | awk -vtgt_tag="@2e@" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
 
     cat ${TRUECASED_DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
     cat ${TRUECASED_DATA}/${SET}.en  >> ${PROCESSED_DATA}/${SET}.tgt
