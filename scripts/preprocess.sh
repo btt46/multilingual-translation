@@ -33,6 +33,12 @@ DATA_NAME="train valid test"
 TEXT_PROCESS=$PWD/text-process
 SCRIPTS=$PWD/scripts
 # ***************************************
+rm -rf $DATA
+rm -rf $PROCESSED_DATA
+rm -rf $NORMALIZED_DATA
+rm -rf $TOKENIZED_DATA
+rm -rf $TRUECASED_DATAs
+
 
 mkdir -p $DATA
 mkdir -p $PROCESSED_DATA
