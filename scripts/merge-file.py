@@ -18,11 +18,11 @@ def writeToSourceFile(file_name_1,file_name_2,source_file_name):
 	file_content_1 = []
 	file_content_2 = []
 
-	with open(file_name_1,"r") as fp1:
+	with open(file_name_1,"r",encoding="utf-8") as fp1:
 		file_content_1 = fp1.readlines()
 		fp1.close()
 
-	with open(file_name_2,"r") as fp2:
+	with open(file_name_2,"r",encoding="utf-8") as fp2:
 		file_content_2 = fp2.readlines()
 		fp2.close()
 
@@ -33,7 +33,7 @@ def writeToSourceFile(file_name_1,file_name_2,source_file_name):
 		print("2 files have not the same size")
 		exit()
 
-	with open(source_file_name,"a") as fp:
+	with open(source_file_name,"a",encoding="utf-8") as fp:
 		for i in range(len(tagged_1)):
 			fp.write(tagged_1[i])
 			fp.write(tagged_2[i])
@@ -43,11 +43,11 @@ def writeToTargetFile(file_name_1,file_name_2,target_file_name):
 	file_content_1 = []
 	file_content_2 = []
 
-	with open(file_name_1,"r") as fp1:
+	with open(file_name_1,"r",encoding="utf-8") as fp1:
 		file_content_1 = fp1.readlines()
 		fp1.close()
 
-	with open(file_name_2,"r") as fp2:
+	with open(file_name_2,"r",encoding="utf-8") as fp2:
 		file_content_2 = fp2.readlines()
 		fp2.close()
 
@@ -56,7 +56,7 @@ def writeToTargetFile(file_name_1,file_name_2,target_file_name):
 		print("2 files have not the same size")
 		exit()
 
-	with open(target_file_name,"a") as fp:
+	with open(target_file_name,"a",encoding="utf-8") as fp:
 		for i in range(len(file_content_1)):
 			fp.write(file_content_1[i])
 			fp.write(file_content_2[i])
