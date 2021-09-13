@@ -37,8 +37,11 @@ grep ^H $TEST/translation.result| cut -f3 > $TEST/test.result
 
 # the size of a test file is 1268.
 # 普通文字に戻す
-cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
-cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
+# cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
+# cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
+
+cat $TEST/test.result | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
+cat $TEST/test.result | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
 
 # detruecase
 $DETRUECASER < $PWD/test/result.vi > $PWD/test/detruecase.vi
