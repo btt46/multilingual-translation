@@ -4,9 +4,9 @@ def addTag(file_name, file_content):
 	tag = ""
 	new_content = []
 	if ".en" in file_name:
-		tag = "<e2v>"
+		tag = "<e2v> "
 	if ".vi" in file_name:
-		tag = "<v2e>"
+		tag = "<v2e> "
 
 	for line in file_content:
 		new_content.append(tag+line)
