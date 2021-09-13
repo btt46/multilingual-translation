@@ -93,7 +93,7 @@ for SET in $DATA_NAME ; do
     # cat ${TRUECASED_DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
     # cat ${TRUECASED_DATA}/${SET}.en  >> ${PROCESSED_DATA}/${SET}.tgt
     python3.6 $SCRIPTS/merge_file.py -s1 ${SET}.en -s2 ${SET}.vi -msrc ${PROCESSED_DATA}/${SET}.src \
-                                     -t1 ${SET}.vi -s2 ${SET}.en -mtgt ${PROCESSED_DATA}/${SET}.src
+                                     -t1 ${SET}.vi -s2 ${SET}.en -mtgt ${PROCESSED_DATA}/${SET}.tgt
 
 done
 
