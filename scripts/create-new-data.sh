@@ -18,7 +18,7 @@ NEW_PROCESSED_DATA=$NEW_DATA_FOLDER/processed-data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 
 # The model used for evaluate
-MODEL=$PWD/models/model/checkpoint_best.pt
+MODEL=$PWD/models/model_01/checkpoint_best.pt
 NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model
 
 BIN_DATA=$DATA_FOLDER/bin-data
