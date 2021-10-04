@@ -55,7 +55,7 @@ def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_fil
 			fp.write(tagged_4[i])
 		fp.close()
 
-def writeToTargetFile(file_name_1,file_name_2,target_file_name):
+def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_file_name):
 	file_content_1 = []
 	file_content_2 = []
 
