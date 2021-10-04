@@ -45,15 +45,18 @@ for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
 done
 
-# cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.vi
+cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)|(<v2e> )//g'  > ${NEW_DATA}/train.vi
 # cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
 
-# cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
+cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)(<e2v> )//g'  > ${NEW_DATA}/train.en
 # cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
 
-
+python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${TRUECASED_DATA}/train.en \
+					  -s3 ${NEW_DATA}/new.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
+					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
 
 ########################################################
 
