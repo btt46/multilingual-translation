@@ -16,6 +16,7 @@ TRANSLATION_DATA=$NEW_DATA_FOLDER/translation-data
 NEW_DATA=$NEW_DATA_FOLDER/new-data
 NEW_PROCESSED_DATA=$NEW_DATA_FOLDER/processed-data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
+DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
 MODEL=$PWD/models/model_01/checkpoint_best.pt
@@ -51,7 +52,7 @@ fi
 echo "${TAG}"
 
 cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
-
+								
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
             --path $MODEL \
@@ -60,5 +61,8 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
 
 grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
 
-cat ${NEW_DATA}/data.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.${TGT} 
+cat ${NEW_DATA}/data.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT} 
 
+if [ "${SRC}" = "en" ] ; then
+	python3.6 $DETOK $NEW_DATA/new.tok.${TGT}  new.${TGT}
+fi
