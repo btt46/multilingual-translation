@@ -22,6 +22,8 @@ BIN_DATA=$DATA_FOLDER/bin-data
 ONEWAYDATA=$DATA_FOLDER/oneway
 BPE_DATA=$ONEWAYDATA/bpe-data
 
+MERGE_FILE=$PWD/scripts/merge-file.py
+
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
@@ -35,7 +37,7 @@ mkdir -p $NEW_PROCESSED_DATA
 mkdir -p $NEW_BPE_MODEL
 
 # prepare data for the bidirectional model
-DATA_NAME="train valid test"
+DATA_NAME="valid test"
 
 # copy processed-data to new processed data
 for SET in $DATA_NAME ; do
@@ -43,13 +45,15 @@ for SET in $DATA_NAME ; do
 	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
 done
 
-cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.vi
-cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
-cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
+# cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.vi
+# cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+# cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
 
-cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
-cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
-cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
+# cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)//g'  > ${NEW_DATA}/train.en
+# cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+# cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
+
+
 
 ########################################################
 
