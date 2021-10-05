@@ -49,7 +49,7 @@ cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)|(<v2e> )//g'  >
 # cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
 
-cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)(<e2v> )//g'  > ${NEW_DATA}/train.en
+cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  > ${NEW_DATA}/train.en
 # cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
 
