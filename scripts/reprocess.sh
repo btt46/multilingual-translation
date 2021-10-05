@@ -27,6 +27,9 @@ MERGE_FILE=$PWD/scripts/merge-file.py
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
+rm -rf $NEW_PROCESSED_DATA
+rm -rf $NEW_BIN_DATA
+
 mkdir -p $NEW_DATA_FOLDER
 mkdir -p $NEW_DATA
 mkdir -p $NEW_BPE_DATA
