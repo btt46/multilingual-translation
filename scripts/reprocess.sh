@@ -80,7 +80,7 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 ##model_05
 python3.6 $MERGE_FILE -s1 ${TRUECASED_DATA}/train.en  -s2 ${TRUECASED_DATA}/train.vi  \
 					  -s3 ${NEW_DATA}/new.en -s4 ${NEW_DATA}/new.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en ${NEW_DATA}/train.en \
+					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en  \
 					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
 
 ########################################################
