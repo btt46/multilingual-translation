@@ -31,6 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
 			--save-dir $MODEL \
-			2>&1 | tee $LOG/log.train.model_04
+			2>&1 | tee $LOG/log.train.model_05
 
 echo "TRAINING LOG: $LOG"
