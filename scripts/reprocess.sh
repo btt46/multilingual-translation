@@ -72,10 +72,16 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 # 					  -t4 ${NEW_DATA}/train.en -t3 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
 
 ##model_04
-python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${NEW_DATA}/new.vi \
-					  -s3 ${TRUECASED_DATA}/train.en -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${NEW_DATA}/train.vi -t2 ${NEW_DATA}/train.en \
-					  -t3 ${TRUECASED_DATA}/train.vi -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${NEW_DATA}/new.vi \
+# 					  -s3 ${TRUECASED_DATA}/train.en -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+# 					  -t1 ${NEW_DATA}/train.vi -t2 ${NEW_DATA}/train.en \
+# 					  -t3 ${TRUECASED_DATA}/train.vi -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+
+##model_05
+python3.6 $MERGE_FILE -s1 ${TRUECASED_DATA}/train.en  -s2 ${TRUECASED_DATA}/train.vi  \
+					  -s3 ${NEW_DATA}/new.en -s4 ${NEW_DATA}/new.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en ${NEW_DATA}/train.en \
+					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
 
 ########################################################
 

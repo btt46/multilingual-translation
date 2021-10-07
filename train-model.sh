@@ -3,7 +3,7 @@
 GPUS=$1
 echo "GPU=${GPUS}"
 DATA=$PWD/data/new-data/bin-data	
-MODEL=$PWD/models/model_04
+MODEL=$PWD/models/model_05
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
