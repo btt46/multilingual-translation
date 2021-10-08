@@ -87,11 +87,11 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
 echo "$TRAIN_SIZE"
 
-paste -d'@' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/v2e.random
+paste -d'@' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/v2e.random
 cut -d'@' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
 cut -d'@' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
 
-paste -d'@' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/e2v.random
+paste -d'@' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/e2v.random
 cut -d'@' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
 cut -d'@' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
 
