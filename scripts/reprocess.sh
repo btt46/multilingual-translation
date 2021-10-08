@@ -62,26 +62,26 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 # python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${TRUECASED_DATA}/train.en \
 # 					  -s3 ${NEW_DATA}/new.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 # 					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
-# 					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# 					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 
 ##mode_03
 # python3.6 $MERGE_FILE -s2 ${NEW_DATA}/new.en -s1 ${TRUECASED_DATA}/train.en \
 # 					  -s4 ${NEW_DATA}/new.vi -s3 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 # 					  -t2 ${NEW_DATA}/train.vi -t1 ${TRUECASED_DATA}/train.vi \
-# 					  -t4 ${NEW_DATA}/train.en -t3 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# 					  -t4 ${NEW_DATA}/train.en -t3 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 ##model_04
 # python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${NEW_DATA}/new.vi \
 # 					  -s3 ${TRUECASED_DATA}/train.en -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 # 					  -t1 ${NEW_DATA}/train.vi -t2 ${NEW_DATA}/train.en \
-# 					  -t3 ${TRUECASED_DATA}/train.vi -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# 					  -t3 ${TRUECASED_DATA}/train.vi -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 ##model_05
 # python3.6 $MERGE_FILE -s1 ${TRUECASED_DATA}/train.en  -s2 ${TRUECASED_DATA}/train.vi  \
 # 					  -s3 ${NEW_DATA}/new.en -s4 ${NEW_DATA}/new.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 # 					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en  \
-# 					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# 					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 ##model_06: model_02 + random sampling
 TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
@@ -97,7 +97,7 @@ cut -d'@' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
 python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.en \
 					  -s3 ${NEW_DATA}/new-random.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 					  -t1 ${NEW_DATA}/train-random.vi -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train-random.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+					  -t3 ${NEW_DATA}/train-random.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 
 ########################################################
