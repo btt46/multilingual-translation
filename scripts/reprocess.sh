@@ -78,10 +78,27 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 # 					  -t3 ${TRUECASED_DATA}/train.vi -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
 
 ##model_05
-python3.6 $MERGE_FILE -s1 ${TRUECASED_DATA}/train.en  -s2 ${TRUECASED_DATA}/train.vi  \
-					  -s3 ${NEW_DATA}/new.en -s4 ${NEW_DATA}/new.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en  \
-					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+# python3.6 $MERGE_FILE -s1 ${TRUECASED_DATA}/train.en  -s2 ${TRUECASED_DATA}/train.vi  \
+# 					  -s3 ${NEW_DATA}/new.en -s4 ${NEW_DATA}/new.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+# 					  -t1 ${TRUECASED_DATA}/train.vi  -t2 ${TRUECASED_DATA}/train.en  \
+# 					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+
+##model_06: model_02 + random sampling
+TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
+
+paste -d'切' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | gshuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/v2e.random
+cut -d'切' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
+cut -d'切' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
+
+paste -d'切' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | gshuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/e2v.random
+cut -d'切' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
+cut -d'切' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
+
+python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.en \
+					  -s3 ${NEW_DATA}/new-random.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+					  -t1 ${NEW_DATA}/train-random.vi -t2 ${TRUECASED_DATA}/train.vi \
+					  -t3 ${NEW_DATA}/train-random.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt
+
 
 ########################################################
 
