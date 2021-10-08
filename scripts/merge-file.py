@@ -89,16 +89,16 @@ def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_fil
 
 	with open(target_file_name,"a",encoding="utf-8") as fp:
 		if type == "sentence":
-			for i in range(len(tagged_1)):
-				fp.write(tagged_1[i])
-				fp.write(tagged_2[i])
-				fp.write(tagged_3[i])
-				fp.write(tagged_4[i])
+			for i in range(len(file_content_1)):
+				fp.write(file_content_1[i])
+				fp.write(file_content_2[i])
+				fp.write(file_content_3[i])
+				fp.write(file_content_4[i])
 		if type == "all":
-			fp.write(target_1)
-			fp.write(target_2)
-			fp.write(target_3)
-			fp.write(target_4)
+			fp.write(file_content_1)
+			fp.write(file_content_2)
+			fp.write(file_content_3)
+			fp.write(file_content_4)
 		fp.close()
 
 if __name__=="__main__":
@@ -115,7 +115,7 @@ if __name__=="__main__":
 	parser.add_argument("-t4", "--target_4",help="ファイル名を入力してください")
 	parser.add_argument("-mtgt", "--merge_target", help="生成ファイル名")
 
-	parser.add_argument("-t", "--type",help='"all" or "sentence"',type=str)
+	parser.add_argument("-t", "--type",help='"all" or "sentence"',type="str")
 
 	args = parser.parse_args() 
 
