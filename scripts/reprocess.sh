@@ -86,13 +86,13 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 ##model_06: model_02 + random sampling
 TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
 
-paste -d'¥' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/v2e.random
-cut -d'¥' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
-cut -d'¥' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
+paste -d'@' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/v2e.random
+cut -d'@' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
+cut -d'@' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
 
-paste -d'¥' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/e2v.random
-cut -d'¥' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
-cut -d'¥' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
+paste -d'@' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} | sort -n | cut -f2 > ${NEW_DATA}/e2v.random
+cut -d'@' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
+cut -d'@' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
 
 python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.en \
 					  -s3 ${NEW_DATA}/new-random.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
