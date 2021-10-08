@@ -115,7 +115,7 @@ if __name__=="__main__":
 	parser.add_argument("-t4", "--target_4",help="ファイル名を入力してください")
 	parser.add_argument("-mtgt", "--merge_target", help="生成ファイル名")
 
-	parser.add_argument("-t", "--type",help='"all" or "sentence"',type="str")
+	parser.add_argument("-t", "--type",help='"all" or "sentence"')
 
 	args = parser.parse_args() 
 
