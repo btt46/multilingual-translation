@@ -7,6 +7,7 @@ MODEL=$PWD/models/model_06
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
+PRETRAINED_MODEL=$PWD/models/model_02/checkpoint_best.pt
 
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
@@ -30,6 +31,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
+			--finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.model_06
 

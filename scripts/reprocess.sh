@@ -103,13 +103,7 @@ python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.
 
 ########################################################
 
-# DATA_NAME="valid test"
-# # copy processed-data to new processed data
-# for SET in $DATA_NAME ; do
-# 	echo "${NEW_PROCESSED_DATA}/${SET}.src...."
-# 	cat ${PROCESSED_DATA}/${SET}.src > ${NEW_PROCESSED_DATA}/${SET}.src
-# 	cat ${PROCESSED_DATA}/${SET}.tgt > ${NEW_PROCESSED_DATA}/${SET}.tgt
-# done
+
 
 # echo "old data"
 # cat ${PROCESSED_DATA}/train.src | head -n 133317   > ${NEW_PROCESSED_DATA}/old.src.en
