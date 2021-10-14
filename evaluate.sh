@@ -67,6 +67,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --sampling  \
             --sampling-topk -1 \
             --nbest 5\
+            --path $MODEL \
             --seed 10000 | tee $TEST/translation.result.2
 
 grep ^H $TEST/translation.result.2| cut -f3 > $TEST/test.result.2
