@@ -75,7 +75,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --nbest 1\
 			--temperature 0.8\
             --path $MODEL \
-            --seed 10000 | tee $TEST/translation.result.2
+            --seed 10001 | tee $TEST/translation.result.2
 
 grep ^H $TEST/translation.result.2| cut -f3 > $TEST/test.result.2
 
