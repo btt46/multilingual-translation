@@ -71,8 +71,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --input $BPE_DATA/test.src \
             --sampling  \
             --sampling-topk -1 \
-            --nbest 5\
-			--sampling-temperature 0.8\
+            --temperature 0.8\
             --path $MODEL \
             --seed 10000 | tee $TEST/translation.result.2
 
