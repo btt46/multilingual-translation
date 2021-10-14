@@ -64,8 +64,9 @@ HYP_VI_2=$TEST/hyp.vi.2
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.src \
-            --sampling=True  \
-             --sampling-topk -1 \
+            --sampling  \
+            --nbest 1\
+            --sampling-topk -1 \
             --seed 10000 | tee $TEST/translation.result.2
 
 grep ^H $TEST/translation.result.2| cut -f3 > $TEST/test.result.2
