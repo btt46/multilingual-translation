@@ -13,7 +13,7 @@ BPE_DATA=$DATA_FOLDER/new-data/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model_02/checkpoint_best.pt
+MODEL=$PWD/models/model_06/checkpoint_best.pt
 
 
 BLEU=$PWD/multi-bleu.perl
@@ -28,15 +28,10 @@ REF_VI=$DATA_FOLDER/data/test.vi
 HYP_EN=$TEST/hyp.en
 HYP_VI=$TEST/hyp.vi
 
-HYP_EN_2=$TEST/hyp.en.2
-HYP_VI_2=$TEST/hyp.vi.2
-
 # CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
 #             --input $BPE_DATA/test.src \
 #             --path $MODEL \
 #             --beam 5 | tee $TEST/translation.result
-
-
 
 # grep ^H $TEST/translation.result| cut -f3 > $TEST/test.result
 
@@ -63,6 +58,9 @@ HYP_VI_2=$TEST/hyp.vi.2
 # # Vietnamese to English
 # echo "Vi > En"
 # env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN
+
+HYP_EN_2=$TEST/hyp.en.2
+HYP_VI_2=$TEST/hyp.vi.2
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.src \
@@ -95,3 +93,5 @@ env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI_2
 # Vietnamese to English
 echo "Vi > En"
 env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN_2	
+
+
