@@ -9,11 +9,11 @@ echo "GPU: $GPUS"
 echo "$SRC -> $TGT"
 # the directories for new data 
 DATA_FOLDER=$PWD/data
-NEW_DATA_FOLDER=$DATA_FOLDER/new-data
+NEW_DATA_FOLDER=$DATA_FOLDER/new-data-random
 NEW_BPE_DATA=$NEW_DATA_FOLDER/bpe-data
 NEW_BIN_DATA=$NEW_DATA_FOLDER/bin-data
 TRANSLATION_DATA=$NEW_DATA_FOLDER/translation-data
-NEW_DATA=$NEW_DATA_FOLDER/new-data-random
+NEW_DATA=$NEW_DATA_FOLDER/new-data
 NEW_PROCESSED_DATA=$NEW_DATA_FOLDER/processed-data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 DETOK=$PWD/text-process/detokenize.py
@@ -58,6 +58,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --sampling True \
             --seed 10000 \
             --sampling-topk -1 \
+            --nbest 5\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model_02_1 seed: 10000
