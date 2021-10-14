@@ -13,7 +13,7 @@ BPE_DATA=$DATA_FOLDER/new-data/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model_06/checkpoint_best.pt
+MODEL=$PWD/models/model_02/checkpoint_best.pt
 
 
 BLEU=$PWD/multi-bleu.perl
@@ -28,10 +28,16 @@ REF_VI=$DATA_FOLDER/data/test.vi
 HYP_EN=$TEST/hyp.en
 HYP_VI=$TEST/hyp.vi
 
+# CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+#             --input $BPE_DATA/test.src \
+#             --path $MODEL \
+#             --beam 5 | tee $TEST/translation.result
+
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.src \
-            --path $MODEL \
-            --beam 5 | tee $TEST/translation.result
+            --sampling True \
+            --seed 10000 \
+            --sampling-topk -1 | tee $TEST/translation.result
 
 grep ^H $TEST/translation.result| cut -f3 > $TEST/test.result
 

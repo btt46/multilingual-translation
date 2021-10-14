@@ -58,11 +58,11 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 
 ##train: real, new:synthetic
 
-##model_02
-# python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${TRUECASED_DATA}/train.en \
-# 					  -s3 ${NEW_DATA}/new.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-# 					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
-# 					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
+#model_02
+python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${TRUECASED_DATA}/train.en \
+					  -s3 ${NEW_DATA}/new.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
+					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 
 ##mode_03
@@ -84,21 +84,21 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 # 					  -t3 ${NEW_DATA}/train.vi -t4 ${NEW_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 ##model_06: model_02 + random sampling
-TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
-echo "$TRAIN_SIZE"
+# TRAIN_SIZE="$(sed -n '$=' ${NEW_DATA}/new.en)" 
+# echo "$TRAIN_SIZE"
 
-paste -d'@' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/v2e.random
-cut -d'@' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
-cut -d'@' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
+# paste -d'@' ${NEW_DATA}/new.en ${NEW_DATA}/train.vi | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/v2e.random
+# cut -d'@' -f1 ${NEW_DATA}/v2e.random > ${NEW_DATA}/new-random.en
+# cut -d'@' -f2 ${NEW_DATA}/v2e.random > ${NEW_DATA}/train-random.vi
 
-paste -d'@' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/e2v.random
-cut -d'@' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
-cut -d'@' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
+# paste -d'@' ${NEW_DATA}/new.vi ${NEW_DATA}/train.en | cat -n | shuf -n ${TRAIN_SIZE} |  cut -f2 > ${NEW_DATA}/e2v.random
+# cut -d'@' -f1 ${NEW_DATA}/e2v.random > ${NEW_DATA}/new-random.vi
+# cut -d'@' -f2 ${NEW_DATA}/e2v.random > ${NEW_DATA}/train-random.en
 
-python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.en \
-					  -s3 ${NEW_DATA}/new-random.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${NEW_DATA}/train-random.vi -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train-random.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
+# python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new-random.en -s2 ${TRUECASED_DATA}/train.en \
+# 					  -s3 ${NEW_DATA}/new-random.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+# 					  -t1 ${NEW_DATA}/train-random.vi -t2 ${TRUECASED_DATA}/train.vi \
+# 					  -t3 ${NEW_DATA}/train-random.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 
 ########################################################
