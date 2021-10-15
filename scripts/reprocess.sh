@@ -5,7 +5,7 @@ BPESIZE=5000
 GPUS=$1
 # the directories for new data 
 DATA_FOLDER=$PWD/data
-NEW_DATA_FOLDER=$DATA_FOLDER/new-data
+NEW_DATA_FOLDER=$DATA_FOLDER/new-data-random
 NEW_BPE_DATA=$NEW_DATA_FOLDER/bpe-data
 NEW_BIN_DATA=$NEW_DATA_FOLDER/bin-data
 TRANSLATION_DATA=$NEW_DATA_FOLDER/translation-data
