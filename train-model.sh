@@ -31,8 +31,8 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
-			--finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.model_02_1
 
 echo "TRAINING LOG: $LOG"
+# --finetune-from-model $PRETRAINED_MODEL\
