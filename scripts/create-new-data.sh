@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --sampling-topk -1 \
             --beam 1\
             --nbest 1\
-			--temperature 0.8\
+			--temperature 0.6\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model_02_1 seed: 10001
