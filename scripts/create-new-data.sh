@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --sampling-topk -1 \
             --beam 1\
             --nbest 1\
-			--temperature 0.6\
+			--temperature 0.8\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model_02_1 seed: 10001
@@ -70,10 +70,10 @@ grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
 
 cat ${NEW_DATA}/data.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT} 
 
-if [ "${SRC}" = "en" ] ; then
+if [ "${SRC}" == "en" ] ; then
 	python3.6 $DETOK $NEW_DATA/new.tok.${TGT}  new.${TGT}
 fi
 
-if [ "${SRC}" = "vi" ] ; then
+if [ "${SRC}" == "vi" ] ; then
 	cp $NEW_DATA/new.tok.${TGT}  new.${TGT}
 fi
