@@ -70,10 +70,10 @@ grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
 
 cat ${NEW_DATA}/data.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT} 
 
-if [ "${SRC}" == "en" ] ; then
-	python3.6 $DETOK $NEW_DATA/new.tok.${TGT}  new.${TGT}
+if [ "${SRC}" = "en" ] ; then
+	python3.6 $DETOK $NEW_DATA/new.tok.${TGT} new.${TGT}
 fi
 
-if [ "${SRC}" == "vi" ] ; then
-	cp $NEW_DATA/new.tok.${TGT}  new.${TGT}
+if [ "${SRC}" = "vi" ] ; then
+	cp $NEW_DATA/new.tok.${TGT} new.${TGT}
 fi
