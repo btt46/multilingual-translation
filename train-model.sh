@@ -31,6 +31,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 			--share-all-embeddings \
+			--scoring bleu \
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.model_02_2
 

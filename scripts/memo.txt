@@ -1,0 +1,11 @@
+
+############ 2021/10/21 ##################
+
+双方向モデル finetuning → + BT
+
+dev テスト fine-tuning → temperatureを調整する 
+
+やること： 
+- finetuning → BT
+- 評価： 開発データも評価する 
+- random sampling:  temperatureを調整する 
