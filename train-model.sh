@@ -7,7 +7,7 @@ MODEL=$PWD/models/model.bi
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
-PRETRAINED_MODEL=$PWD/models/model_02/checkpoint_best.pt
+PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
