@@ -10,8 +10,8 @@ DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 # BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
 # BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
-BIN_DATA=$DATA_FOLDER/new-data/bin-data
-BPE_DATA=$DATA_FOLDER/new-data/bpe-data
+BIN_DATA=$DATA_FOLDER/bin-data
+BPE_DATA=$DATA_FOLDER/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
