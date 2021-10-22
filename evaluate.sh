@@ -36,7 +36,7 @@ HYP_VI=$TEST/hyp.vi
 VALID_HYP_EN=$TEST/dev_hyp.en
 VALID_HYP_VI=$TEST/dev_hyp.vi
 
-touch $TEST/result
+echo >  $TEST/result
 
 ############################################################################################
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
