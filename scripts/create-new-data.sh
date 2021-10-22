@@ -30,14 +30,14 @@ BPE_DATA=$ONEWAYDATA/bpe-data
 DATA_NAME="train valid test"
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
-rm -rf $NEW_DATA_FOLDER
-rm -rf $NEW_DATA
-rm -rf $NEW_BPE_DATA
-rm -rf $NEW_BIN_DATA
-rm -rf $TRANSLATION_DATA
-rm -rf $NEW_DATA
-rm -rf $NEW_PROCESSED_DATA
-rm -rf $NEW_BPE_MODEL
+# rm -rf $NEW_DATA_FOLDER
+# rm -rf $NEW_DATA
+# rm -rf $NEW_BPE_DATA
+# rm -rf $NEW_BIN_DATA
+# rm -rf $TRANSLATION_DATA
+# rm -rf $NEW_DATA
+# rm -rf $NEW_PROCESSED_DATA
+# rm -rf $NEW_BPE_MODEL
 
 mkdir -p $NEW_DATA_FOLDER
 mkdir -p $NEW_DATA
