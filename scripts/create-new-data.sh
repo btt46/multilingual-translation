@@ -19,7 +19,7 @@ PROCESSED_DATA=$DATA_FOLDER/processed-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model_bi/checkpoint_best.pt
+MODEL=$PWD/models/model.bi/checkpoint_best.pt
 NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model
 
 BIN_DATA=$DATA_FOLDER/bin-data
