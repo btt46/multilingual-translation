@@ -31,7 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 		    --scoring bleu \
-			# --finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.model.bi
 
@@ -44,3 +43,4 @@ echo "TRAINING LOG: $LOG"
 #    --eval-bleu-remove-bpe \
 #    --eval-bleu-print-samples \
 # --best-checkpoint-metric bleu  \
+# --finetune-from-model $PRETRAINED_MODEL\
