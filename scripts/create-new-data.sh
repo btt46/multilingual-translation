@@ -19,7 +19,7 @@ PROCESSED_DATA=$DATA_FOLDER/processed-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model_01/checkpoint_best.pt
+MODEL=$PWD/models/model_bi/checkpoint_best.pt
 NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model
 
 BIN_DATA=$DATA_FOLDER/bin-data
@@ -72,12 +72,12 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
 			--temperature 0.8\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
-## model_02_1 seed: 10001 temperature 0.8
-## model_02_2 seed: 10002 temperature 0.7
-## model_02_3 seed: 10003 temperature 0.6
-## model_02_4 seed: 10004 temperature 0.5
-## model_02_5 seed: 10005 temperature 0.4
-## model_02_6 seed: 10006 temperature 0.3
+## model_bi_1 seed: 10001 temperature 0.8
+## model_bi_2 seed: 10002 temperature 0.7
+## model_bi_3 seed: 10003 temperature 0.6
+## model_bi_4 seed: 10004 temperature 0.5
+## model_bi_5 seed: 10005 temperature 0.4
+## model_bi_6 seed: 10006 temperature 0.3
 
 grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
 
