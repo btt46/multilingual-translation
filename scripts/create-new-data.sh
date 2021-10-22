@@ -30,6 +30,15 @@ BPE_DATA=$ONEWAYDATA/bpe-data
 DATA_NAME="train valid test"
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
+rm -rf $NEW_DATA_FOLDER
+rm -rf $NEW_DATA
+rm -rf $NEW_BPE_DATA
+rm -rf $NEW_BIN_DATA
+rm -rf $TRANSLATION_DATA
+rm -rf $NEW_DATA
+rm -rf $NEW_PROCESSED_DATA
+rm -rf $NEW_BPE_MODEL
+
 mkdir -p $NEW_DATA_FOLDER
 mkdir -p $NEW_DATA
 mkdir -p $NEW_BPE_DATA
@@ -56,15 +65,18 @@ cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' >
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
             --sampling \
-            --seed 10002 \
+            --seed 10001 \
             --sampling-topk -1 \
-            --beam 1\
             --nbest 1\
-			--temperature 0.6\
+			--temperature 0.8\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model_02_1 seed: 10001 temperature 0.8
-## model_02_2 seed: 10002 temperature 0.6
+## model_02_2 seed: 10002 temperature 0.7
+## model_02_3 seed: 10003 temperature 0.6
+## model_02_4 seed: 10004 temperature 0.5
+## model_02_5 seed: 10005 temperature 0.4
+## model_02_6 seed: 10006 temperature 0.3
 
 grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
 
