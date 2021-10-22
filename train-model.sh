@@ -30,12 +30,12 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--arch transformer_iwslt_de_en \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
-			--share-all-embeddings \
-			--eval-bleu \
-		    --eval-bleu-args '{"beam": 5, "max_len_a": 1.2, "max_len_b": 10}' \
-		    --eval-bleu-detok moses \
-		    --eval-bleu-remove-bpe \
-		    --eval-bleu-print-samples \
+			# --share-all-embeddings \
+			# --eval-bleu \
+		 #    --eval-bleu-args '{"beam": 5, "max_len_a": 1.2, "max_len_b": 10}' \
+		 #    --eval-bleu-detok moses \
+		 #    --eval-bleu-remove-bpe \
+		 #    --eval-bleu-print-samples \
 		    # --best-checkpoint-metric bleu  \
 		    --scoring bleu \
 			# --finetune-from-model $PRETRAINED_MODEL\
