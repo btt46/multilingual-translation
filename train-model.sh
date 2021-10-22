@@ -36,7 +36,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 		    --eval-bleu-detok moses \
 		    --eval-bleu-remove-bpe \
 		    --eval-bleu-print-samples \
-		    --best-checkpoint-metric bleu  \
+		    # --best-checkpoint-metric bleu  \
 		    --scoring bleu \
 			# --finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
