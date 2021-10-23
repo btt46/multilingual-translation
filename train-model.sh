@@ -31,7 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--arch transformer_iwslt_de_en \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
-		    --scoring bleu \
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
