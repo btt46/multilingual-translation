@@ -1,9 +1,10 @@
 #!/bin/bash
 
 GPUS=$1
+MODEL_NAME=$2
 echo "GPU=${GPUS}"
 DATA=$PWD/data/bin-data	
-MODEL=$PWD/models/model.bi
+MODEL=$PWD/models/${MODEL_NAME}
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
@@ -32,7 +33,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--attention-dropout 0.1 \
 		    --scoring bleu \
 			--save-dir $MODEL \
-			2>&1 | tee $LOG/log.train.model.bi
+			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
 echo "TRAINING LOG: $LOG"
 # --finetune-from-model $PRETRAINED_MODEL\
