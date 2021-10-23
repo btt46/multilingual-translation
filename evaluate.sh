@@ -15,7 +15,7 @@ BPE_DATA=$DATA_FOLDER/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL_NAME=model.bi
+MODEL_NAME=$2
 MODEL=$PWD/models/${MODEL_NAME}/checkpoint_best.pt
 
 # MODEL=$PWD/models/model_06/checkpoint_best.pt
