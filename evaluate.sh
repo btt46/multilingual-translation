@@ -15,7 +15,9 @@ BPE_DATA=$DATA_FOLDER/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/model.bi/checkpoint_best.pt
+MODEL_NAME=model.bi
+MODEL=$PWD/models/${MODEL_NAME}/checkpoint_best.pt
+
 # MODEL=$PWD/models/model_06/checkpoint_best.pt
 
 BLEU=$PWD/multi-bleu.perl
@@ -36,7 +38,7 @@ HYP_VI=$TEST/hyp.vi
 VALID_HYP_EN=$TEST/dev_hyp.en
 VALID_HYP_VI=$TEST/dev_hyp.vi
 
-echo >  $TEST/result
+echo >  $TEST/${MODEL_NAME}.result
 
 ############################################################################################
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
@@ -63,13 +65,13 @@ python3.6 $DETOK $PWD/test/detruecase.vi $HYP_VI
 python3.6 $DETOK $PWD/test/detruecase.en $HYP_EN
 
 # English to Vietnamese
-echo "TEST" >> $TEST/result
-echo "En > Vi" >> $TEST/result
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/result
+echo "TEST" >> $TEST/${MODEL_NAME}.result
+echo "En > Vi" >> $TEST/${MODEL_NAME}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/${MODEL_NAME}.result
 
 # Vietnamese to English
 echo "Vi > En"
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/result
+env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.result
 
 
 ####### DEV ######
@@ -97,13 +99,13 @@ python3.6 $DETOK $PWD/test/valid_detruecase.vi $VALID_HYP_VI
 python3.6 $DETOK $PWD/test/valid_detruecase.en $VALID_HYP_EN
 
 # English to Vietnamese
-echo "VALID" >> $TEST/result
-echo "En > Vi" >> $TEST/result
-env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $TEST/result
+echo "VALID" >> $TEST/${MODEL_NAME}.result
+echo "En > Vi" >> $TEST/${MODEL_NAME}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $TEST/${MODEL_NAME}.result
 
 # Vietnamese to English
 echo "Vi > En" >> $TEST/result
-env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $TEST/result
+env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $TEST/${MODEL_NAME}.result
 
 
 
