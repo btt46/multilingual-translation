@@ -8,7 +8,7 @@ MODEL=$PWD/models/${MODEL_NAME}
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
-# PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
+PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
@@ -31,6 +31,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--arch transformer_iwslt_de_en \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
+			--finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
