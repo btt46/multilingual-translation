@@ -65,11 +65,11 @@ cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' >
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
             --sampling \
-            --seed 10001 \
+            --seed 10002 \
             --sampling-topk -1 \
             --nbest 1\
             --beam 1\
-			--temperature 0.8\
+			--temperature 0.7\
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model.bi.BT1 seed: 10001 temperature 0.8
