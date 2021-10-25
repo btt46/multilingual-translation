@@ -22,7 +22,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--log-interval 100 \
 			--min-lr '1e-09' \
 			--weight-decay 0.0001 \
-			--criterion label_smoothed_cross_entropy \
+			--criterion cross_entropy \
 			--label-smoothing 0.1 \
 			--lr-scheduler inverse_sqrt \
 			--warmup-updates 4000 \
