@@ -10,14 +10,15 @@ mkdir -p $PWD/log
 LOG=$PWD/log
 PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
+CUDA_LAUNCH_BLOCKING="1"
 
-CUDA_LAUNCH_BLOCKING=1 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
+CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
             --log-interval 100 \
 			--log-format json \
 			--max-epoch 30 \
     		--optimizer adam --lr 0.0001 \
 			--clip-norm 0.0 \
-			--max-tokens 512 \
+			--max-tokens 4000 \
 			--no-progress-bar \
 			--log-interval 100 \
 			--min-lr '1e-09' \
