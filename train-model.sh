@@ -10,7 +10,7 @@ mkdir -p $PWD/log
 LOG=$PWD/log
 PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
-CUDA_LAUNCH_BLOCKING="1"
+export CUDA_LAUNCH_BLOCKING=1
 
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
             --log-interval 100 \
