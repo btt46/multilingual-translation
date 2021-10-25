@@ -11,7 +11,7 @@ LOG=$PWD/log
 PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 
-CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
+CUDA_VISIBLE_DEVICES=$GPUS CUDA_LAUNCH_BLOCKING=1 fairseq-train $DATA -s src -t tgt \
             --log-interval 100 \
 			--log-format json \
 			--max-epoch 30 \
