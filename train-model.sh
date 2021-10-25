@@ -32,7 +32,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
 			--finetune-from-model $PRETRAINED_MODEL\
-			--reset-dataloader \
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
