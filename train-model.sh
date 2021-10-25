@@ -11,7 +11,7 @@ LOG=$PWD/log
 PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 
-CUDA_VISIBLE_DEVICES=$GPUS CUDA_LAUNCH_BLOCKING=1 fairseq-train $DATA -s src -t tgt \
+CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
             --log-interval 100 \
 			--log-format json \
 			--max-epoch 30 \
@@ -22,7 +22,7 @@ CUDA_VISIBLE_DEVICES=$GPUS CUDA_LAUNCH_BLOCKING=1 fairseq-train $DATA -s src -t 
 			--log-interval 100 \
 			--min-lr '1e-09' \
 			--weight-decay 0.0001 \
-			--criterion cross_entropy \
+			--criterion label_smoothed_cross_entropy \
 			--label-smoothing 0.1 \
 			--lr-scheduler inverse_sqrt \
 			--warmup-updates 4000 \
@@ -31,8 +31,6 @@ CUDA_VISIBLE_DEVICES=$GPUS CUDA_LAUNCH_BLOCKING=1 fairseq-train $DATA -s src -t 
 			--arch transformer_iwslt_de_en \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
-			--share-all-embeddings \
-			--finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
