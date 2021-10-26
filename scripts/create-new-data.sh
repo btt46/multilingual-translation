@@ -5,6 +5,8 @@ BPESIZE=5000
 GPUS=$1
 SRC=$2
 TGT=$3
+SEED=$4
+TEMP=$5
 echo "GPU: $GPUS"
 echo "$SRC -> $TGT"
 # the directories for new data 
@@ -65,11 +67,11 @@ cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' >
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input ${TRANSLATION_DATA}/translation.${SRC} \
             --sampling \
-            --seed 10001 \
+            --seed ${SEED} \
             --sampling-topk -1 \
             --nbest 1\
             --beam 1\
-			--temperature 0.8\
+		--temperature ${TEMP} \
             --path $MODEL  | tee $NEW_DATA/result.${TGT}
 
 ## model.bi.BT1 seed: 10001 temperature 0.8
