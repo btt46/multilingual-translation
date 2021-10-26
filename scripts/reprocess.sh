@@ -155,7 +155,6 @@ fairseq-preprocess -s src -t tgt \
 			--testpref ${NEW_BPE_DATA}/test \
 			--tgtdict ${BIN_DATA}/dict.tgt.txt \
 			--srcdict ${BIN_DATA}/dict.src.txt \
-			--joined-dictionary \
 			--workers 32 
 
 
