@@ -7,6 +7,7 @@ SRC=$2
 TGT=$3
 SEED=$4
 TEMP=$5
+NUM=$6
 echo "GPU: $GPUS"
 echo "$SRC -> $TGT"
 # the directories for new data 
@@ -72,7 +73,7 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
             --nbest 1\
             --beam 1\
 		--temperature ${TEMP} \
-            --path $MODEL  | tee $NEW_DATA/result.${TGT}
+            --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
 
 ## model.bi.BT1 seed: 10001 temperature 0.8
 ## model.bi.BT2 seed: 10002 temperature 0.7
@@ -81,14 +82,14 @@ CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA 
 ## model.bi.BT5 seed: 10005 temperature 0.4
 ## model.bi.BT6 seed: 10006 temperature 0.3
 
-grep ^H ${NEW_DATA}/result.${TGT} | cut -f3 > ${NEW_DATA}/data.${TGT}
+grep ^H ${NEW_DATA}/result.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.${TGT}.${NUM}
 
-cat ${NEW_DATA}/data.${TGT}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT} 
+cat ${NEW_DATA}/data.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT}.${NUM} 
 
 if [ "${SRC}" = "en" ] ; then
-	python3.6 $DETOK $NEW_DATA/new.tok.${TGT} $NEW_DATA/new.${TGT}
+	python3.6 $DETOK $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
 fi
 
 if [ "${SRC}" = "vi" ] ; then
-	cp $NEW_DATA/new.tok.${TGT} $NEW_DATA/new.${TGT}
+	cp $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
 fi

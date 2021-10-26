@@ -59,8 +59,8 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 ##train: real, new:synthetic
 
 #model_02
-python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en -s2 ${TRUECASED_DATA}/train.en \
-					  -s3 ${NEW_DATA}/new.vi -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
+					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
 					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
