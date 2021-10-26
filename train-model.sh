@@ -3,7 +3,7 @@
 GPUS=$1
 MODEL_NAME=$2
 echo "GPU=${GPUS}"
-DATA=$PWD/data/bin-data	
+DATA=$PWD/data/new-data-random/bin-data	
 MODEL=$PWD/models/${MODEL_NAME}
 mkdir -p $MODEL
 mkdir -p $PWD/log
@@ -33,6 +33,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 			--attention-dropout 0.1 \
 			--share-decoder-input-output-embed \
 			--share-all-embeddings \
+			--finetune-from-model $PRETRAINED_MODEL\
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
