@@ -2,7 +2,7 @@
 set -e
 
 BPESIZE=5000
-GPUS=$1
+NUM=$1
 # the directories for new data 
 DATA_FOLDER=$PWD/data
 NEW_DATA_FOLDER=$DATA_FOLDER/new-data-random
