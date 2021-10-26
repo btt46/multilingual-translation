@@ -2,8 +2,9 @@
 
 GPUS=$1
 MODEL_NAME=$2
+NUM=$3
 echo "GPU=${GPUS}"
-DATA=$PWD/data/new-data-random/bin-data	
+DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 MODEL=$PWD/models/${MODEL_NAME}
 mkdir -p $MODEL
 mkdir -p $PWD/log
