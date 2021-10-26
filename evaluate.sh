@@ -70,7 +70,7 @@ echo "En > Vi" >> $TEST/${MODEL_NAME}.result
 env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/${MODEL_NAME}.result
 
 # Vietnamese to English
-echo "Vi > En"
+echo "Vi > En"  >> $TEST/${MODEL_NAME}.result
 env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.result
 
 
@@ -104,7 +104,7 @@ echo "En > Vi" >> $TEST/${MODEL_NAME}.result
 env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $TEST/${MODEL_NAME}.result
 
 # Vietnamese to English
-echo "Vi > En" >> $TEST/result
+echo "Vi > En" >> $TEST/${MODEL_NAME}.result
 env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $TEST/${MODEL_NAME}.result
 
 
