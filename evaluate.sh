@@ -1,6 +1,8 @@
 #!/bin/bash
 
 GPUS=$1
+MODEL_NAME=$2
+NUM=$3
 
 MOSES=$PWD/mosesdecoder/scripts
 DETRUECASER=$MOSES/recaser/detruecase.perl
@@ -8,14 +10,14 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 # prepare data for evaluating a model
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
-BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
+BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
 BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
 # BIN_DATA=$DATA_FOLDER/bin-data
 # BPE_DATA=$DATA_FOLDER/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL_NAME=$2
+
 MODEL=$PWD/models/${MODEL_NAME}/checkpoint_best.pt
 
 # MODEL=$PWD/models/model_06/checkpoint_best.pt
