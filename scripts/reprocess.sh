@@ -10,7 +10,7 @@ NEW_BPE_DATA=$NEW_DATA_FOLDER/bpe-data-${NUM}
 NEW_BIN_DATA=$NEW_DATA_FOLDER/bin-data-${NUM}
 TRANSLATION_DATA=$NEW_DATA_FOLDER/translation-data
 NEW_DATA=$NEW_DATA_FOLDER/new-data
-NEW_PROCESSED_DATA=$NEW_DATA_FOLDER/processed-data
+NEW_PROCESSED_DATA=$NEW_DATA_FOLDER/processed-data-${NUM}
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 
 # The model used for evaluate
