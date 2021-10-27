@@ -6,7 +6,7 @@ NUM=$1
 # the directories for new data 
 DATA_FOLDER=$PWD/data
 NEW_DATA_FOLDER=$DATA_FOLDER/new-data-random
-NEW_BPE_DATA=$NEW_DATA_FOLDER/bpe-data
+NEW_BPE_DATA=$NEW_DATA_FOLDER/bpe-data-${NUM}
 NEW_BIN_DATA=$NEW_DATA_FOLDER/bin-data-${NUM}
 TRANSLATION_DATA=$NEW_DATA_FOLDER/translation-data
 NEW_DATA=$NEW_DATA_FOLDER/new-data
@@ -15,7 +15,7 @@ PROCESSED_DATA=$DATA_FOLDER/processed-data
 
 # The model used for evaluate
 MODEL=$PWD/models/model/checkpoint_best.pt
-NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model
+NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model-${NUM}
 
 BIN_DATA=$DATA_FOLDER/bin-data
 
@@ -44,15 +44,15 @@ DATA_NAME="valid test"
 
 # copy processed-data to new processed data
 for SET in $DATA_NAME ; do
-	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src
-	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt
+	cat $PROCESSED_DATA/${SET}.src > $NEW_PROCESSED_DATA/${SET}.src.${NUM}
+	cat $PROCESSED_DATA/${SET}.tgt > $NEW_PROCESSED_DATA/${SET}.tgt.${NUM}
 done
 
-cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)|(<v2e> )//g'  > ${NEW_DATA}/train.vi
+cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)|(<v2e> )//g'  > ${NEW_DATA}/train.vi.${NUM}
 # cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
 
-cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  > ${NEW_DATA}/train.en
+cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  > ${NEW_DATA}/train.en.${NUM}
 # cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
 # cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
 
@@ -60,9 +60,9 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 
 #model_02
 python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
-					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${NEW_DATA}/train.vi -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train.en -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
+					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src.${NUM} \
+					  -t1 ${NEW_DATA}/train.vi.${NUM} -t2 ${TRUECASED_DATA}/train.vi \
+					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt.${NUM} -t sentence
 
 
 ##mode_03
@@ -132,7 +132,7 @@ python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.
 # learn bpe model with training data
 
 echo "=> LEARNING BPE MODEL: $BPE_MODEL"
-subword-nmt learn-joint-bpe-and-vocab --input ${NEW_PROCESSED_DATA}/train.src ${NEW_PROCESSED_DATA}/train.tgt \
+subword-nmt learn-joint-bpe-and-vocab --input ${NEW_PROCESSED_DATA}/train.src.${NUM} ${NEW_PROCESSED_DATA}/train.tgt.${NUM} \
 				-s $BPESIZE -o ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe \
 				--write-vocabulary ${NEW_BPE_MODEL}/train.src.vocab ${NEW_BPE_MODEL}/train.tgt.vocab 
 
