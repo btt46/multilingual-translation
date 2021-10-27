@@ -60,9 +60,9 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 
 #model_02
 python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
-					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src.${NUM} \
+					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 					  -t1 ${NEW_DATA}/train.vi.${NUM} -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt.${NUM} -t sentence
+					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
 
 
 ##mode_03
@@ -132,7 +132,7 @@ python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.
 # learn bpe model with training data
 
 echo "=> LEARNING BPE MODEL: $BPE_MODEL"
-subword-nmt learn-joint-bpe-and-vocab --input ${NEW_PROCESSED_DATA}/train.src.${NUM} ${NEW_PROCESSED_DATA}/train.tgt.${NUM} \
+subword-nmt learn-joint-bpe-and-vocab --input ${NEW_PROCESSED_DATA}/train.src ${NEW_PROCESSED_DATA}/train.tgt \
 				-s $BPESIZE -o ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe \
 				--write-vocabulary ${NEW_BPE_MODEL}/train.src.vocab ${NEW_BPE_MODEL}/train.tgt.vocab 
 
