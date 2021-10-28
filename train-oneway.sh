@@ -31,6 +31,7 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s ${SRC} -t ${TGT} \
 			--arch transformer_iwslt_de_en \
 			--dropout 0.1 \
 			--attention-dropout 0.1 \
+			--share-decoder-input-output-embed \
 			--share-all-embeddings \
 			--save-dir $MODEL \
 			2>&1 | tee $LOG/log.train
