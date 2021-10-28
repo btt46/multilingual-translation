@@ -41,11 +41,11 @@ REF_VI=$DATA_FOLDER/data/test.vi
 VALID_REF_EN=$DATA_FOLDER/data/valid.en
 VALID_REF_VI=$DATA_FOLDER/data/valid.vi
 
-HYP_EN=$TEST/hyp.en
-HYP_VI=$TEST/hyp.vi
+HYP_EN=$TEST/hyp.en.${NUM}
+HYP_VI=$TEST/hyp.vi.${NUM}
 
-VALID_HYP_EN=$TEST/dev_hyp.en
-VALID_HYP_VI=$TEST/dev_hyp.vi
+VALID_HYP_EN=$TEST/dev_hyp.en.${NUM}
+VALID_HYP_VI=$TEST/dev_hyp.vi.${NUM}
 
 echo >  $TEST/${MODEL_NAME}.result
 
@@ -53,25 +53,25 @@ echo >  $TEST/${MODEL_NAME}.result
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.src \
             --path $MODEL \
-            --beam 5 | tee $TEST/translation.result
+            --beam 5 | tee $TEST/translation.result.${NUM}
 
-grep ^H $TEST/translation.result| cut -f3 > $TEST/test.result
+grep ^H $TEST/translation.result.${NUM}| cut -f3 > $TEST/test.result.${NUM}
 
 # the size of a test file is 1268.
 # 普通文字に戻す
 # cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
 # cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
 
-cat $TEST/test.result | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
-cat $TEST/test.result | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
+cat $TEST/test.result.${NUM} | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi.${NUM}
+cat $TEST/test.result.${NUM} | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en.${NUM}
 
 # detruecase
-$DETRUECASER < $PWD/test/result.vi > $PWD/test/detruecase.vi
-$DETRUECASER < $PWD/test/result.en > $PWD/test/detruecase.en
+$DETRUECASER < $PWD/test/result.vi.${NUM} > $PWD/test/detruecase.vi.${NUM}
+$DETRUECASER < $PWD/test/result.en.${NUM} > $PWD/test/detruecase.en.${NUM}
 
 # detokenize
-python3.6 $DETOK $PWD/test/detruecase.vi $HYP_VI
-python3.6 $DETOK $PWD/test/detruecase.en $HYP_EN
+python3.6 $DETOK $PWD/test/detruecase.vi.${NUM} $HYP_VI
+python3.6 $DETOK $PWD/test/detruecase.en.${NUM} $HYP_EN
 
 # English to Vietnamese
 echo "TEST" >> $TEST/${MODEL_NAME}.result
@@ -87,25 +87,25 @@ env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.resul
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/valid.src \
             --path $MODEL \
-            --beam 5 | tee $TEST/translation.valid.result
+            --beam 5 | tee $TEST/translation.valid.result.${NUM}
 
-grep ^H $TEST/translation.valid.result| cut -f3 > $TEST/valid.result
+grep ^H $TEST/translation.valid.result.${NUM} | cut -f3 > $TEST/valid.result.${NUM}
 
 # the size of a test file is 1268.
 # 普通文字に戻す
 # cat $TEST/test.result | head -n 1268 | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/result.vi
 # cat $TEST/test.result | tail -n +1269 | sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/result.en
 
-cat $TEST/valid.result | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/valid.result.vi
-cat $TEST/valid.result | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/valid.result.en
+cat $TEST/valid.result.${NUM} | awk 'NR % 2 == 1' | sed -r 's/(@@ )|(@@ ?$)//g'  > $PWD/test/valid.result.vi.${NUM}
+cat $TEST/valid.result.${NUM} | awk 'NR % 2 == 0'| sed -r 's/(@@ )|(@@ ?$)//g' > $PWD/test/valid.result.en.${NUM}
 
 # detruecase
-$DETRUECASER < $PWD/test/valid.result.vi > $PWD/test/valid_detruecase.vi
-$DETRUECASER < $PWD/test/valid.result.en > $PWD/test/valid_detruecase.en
+$DETRUECASER < $PWD/test/valid.result.vi.${NUM} > $PWD/test/valid_detruecase.vi.${NUM}
+$DETRUECASER < $PWD/test/valid.result.en.${NUM} > $PWD/test/valid_detruecase.en.${NUM}
 
 # detokenize
-python3.6 $DETOK $PWD/test/valid_detruecase.vi $VALID_HYP_VI
-python3.6 $DETOK $PWD/test/valid_detruecase.en $VALID_HYP_EN
+python3.6 $DETOK $PWD/test/valid_detruecase.vi.${NUM} $VALID_HYP_VI
+python3.6 $DETOK $PWD/test/valid_detruecase.en.${NUM} $VALID_HYP_EN
 
 # English to Vietnamese
 echo "VALID" >> $TEST/${MODEL_NAME}.result
