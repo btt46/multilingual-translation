@@ -10,10 +10,17 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 # prepare data for evaluating a model
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
-BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
-BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
-# BIN_DATA=$DATA_FOLDER/bin-data
-# BPE_DATA=$DATA_FOLDER/bpe-data
+
+if [$NUM -gt 1]; then
+	echo "$NUM"
+	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
+	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
+fi
+if [$NUM == 1]; then
+	echo "$NUM default"
+	BIN_DATA=$DATA_FOLDER/bin-data
+	BPE_DATA=$DATA_FOLDER/bpe-data
+fi
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
