@@ -24,7 +24,7 @@ if [ $NUM -eq 1 ]; then
 fi
 
 if [ $NUM -eq 0 ]; then
-	echo "$NUM default"
+	echo "$NUM base"
 	BIN_DATA=$DATA_FOLDER/bin-data
 	BPE_DATA=$DATA_FOLDER/bpe-data
 fi
