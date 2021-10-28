@@ -16,7 +16,8 @@ if [ $NUM -gt 1 ]; then
 	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
 	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
 fi
-if [ $NUM == 1 ]; then
+
+if [ $NUM==1 ]; then
 	echo "$NUM default"
 	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
 	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
