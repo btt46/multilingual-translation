@@ -22,6 +22,13 @@ if [ $NUM -eq 1 ]; then
 	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
 	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
 fi
+
+if [ $NUM -eq 0 ]; then
+	echo "$NUM default"
+	BIN_DATA=$DATA_FOLDER/bin-data
+	BPE_DATA=$DATA_FOLDER/bpe-data
+fi
+
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
