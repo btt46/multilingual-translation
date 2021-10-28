@@ -18,8 +18,8 @@ if [$NUM -gt 1]; then
 fi
 if [$NUM == 1]; then
 	echo "$NUM default"
-	BIN_DATA=$DATA_FOLDER/bin-data
-	BPE_DATA=$DATA_FOLDER/bpe-data
+	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
+	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
 fi
 DETOK=$PWD/text-process/detokenize.py
 
