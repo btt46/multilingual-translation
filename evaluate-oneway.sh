@@ -56,7 +56,7 @@ env LC_ALL=en_US.UTF-8 perl $BLEU $TEST_REF < $TEST_HYP >> $TEST/${SRC}-${TGT}.r
 
 #### validation
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-            --input $BPE_DATA/test.${SRC} \
+            --input $BPE_DATA/valid.${SRC} \
             --path $MODEL \
             --beam 5 | tee ${TEST}/valid.translation.result.${TGT}
 
