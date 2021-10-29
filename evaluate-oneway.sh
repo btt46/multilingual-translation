@@ -22,27 +22,56 @@ BLEU=$PWD/multi-bleu.perl
 mkdir -p $PWD/test-oneway
 TEST=$PWD/test-oneway
 
-HYP=$TEST/hyp.${TGT}
-REF=$DATA_FOLDER/data/test.${TGT}
+TEST_HYP=$TEST/test.hyp.${TGT}
+TEST_REF=$DATA_FOLDER/data/test.${TGT}
+
+VALID_HYP=$TEST/valid.hyp.${TGT}
+VALID_REF=$DATA_FOLDER/data/valid.${TGT}
+
+echo >  $TEST/${SRC}-${TGT}.result
 
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
             --input $BPE_DATA/test.${SRC} \
             --path $MODEL \
-            --beam 5 | tee ${TEST}/translation.result.${TGT}
+            --beam 5 | tee ${TEST}/test.translation.result.${TGT}
 
-grep ^H $TEST/translation.result.${TGT}| cut -f3 > $TEST/test.result
+grep ^H $TEST/test.translation.result.${TGT}| cut -f3 > $TEST/test.result
 cat $TEST/test.result | sed -r 's/(@@ )|(@@ ?$)//g' > ${TEST}/test.result.${TGT}
 
 # detruecase
-$DETRUECASER < ${TEST}/test.result.${TGT} > ${TEST}/detruecase.${TGT}
+$DETRUECASER < ${TEST}/test.result.${TGT} > ${TEST}/test.detruecase.${TGT}
 
 # detokenize
-python3.6 $DETOK ${TEST}/detruecase.${TGT} $HYP
+python3.6 $DETOK ${TEST}/test.detruecase.${TGT} $TEST_HYP
+
+
 
 # English to Vietnamese
-echo "${SRC} > ${TGT}"
-env LC_ALL=en_US.UTF-8 perl $BLEU $REF < $HYP
+echo "TEST" >> $TEST/${SRC}-${TGT}.result
+echo "${SRC} > ${TGT}" >> $TEST/${SRC}-${TGT}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $TEST_REF < $TEST_HYP >> $TEST/${SRC}-${TGT}.result
 
-# Vietnamese to English
+
+
+#### validation
+CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+            --input $BPE_DATA/test.${SRC} \
+            --path $MODEL \
+            --beam 5 | tee ${TEST}/valid.translation.result.${TGT}
+
+grep ^H $TEST/valid.translation.result.${TGT}| cut -f3 > $TEST/valid.result
+cat $TEST/valid.result | sed -r 's/(@@ )|(@@ ?$)//g' > ${TEST}/valid.result.${TGT}
+
+# detruecase
+$DETRUECASER < ${TEST}/valid.result.${TGT} > ${TEST}/valid.detruecase.${TGT}
+
+# detokenize
+python3.6 $DETOK ${TEST}/valid.detruecase.${TGT} $VALID_HYP
+
+# English to Vietnamese
+echo "VALID" >> $TEST/${SRC}-${TGT}.result
+echo "${SRC} > ${TGT}" >> $TEST/${SRC}-${TGT}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF < $VALID_HYP >> $TEST/${SRC}-${TGT}.result
+
 
