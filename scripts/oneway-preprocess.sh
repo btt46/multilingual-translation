@@ -27,8 +27,8 @@ if [ ! -d $BPE_MODEL ]; then
 	mkdir -p $BPE_MODEL
 fi
 
-subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/model.vi
-subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
+# subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/model.vi
+# subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
 
 DATA_NAME="train valid test"
 
