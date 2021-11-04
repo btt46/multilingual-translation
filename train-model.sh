@@ -3,6 +3,7 @@
 GPUS=$1
 MODEL_NAME=$2
 NUM=$3
+EPOCHS=$4
 echo "GPU=${GPUS}"
 DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 MODEL=$PWD/models/${MODEL_NAME}
@@ -15,7 +16,7 @@ PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
             --log-interval 100 \
 			--log-format json \
-			--max-epoch 30 \
+			--max-epoch ${EPOCHS} \
     		--optimizer adam --lr 0.0001 \
 			--clip-norm 0.0 \
 			--max-tokens 4000 \
