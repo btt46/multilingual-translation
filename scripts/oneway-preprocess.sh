@@ -23,9 +23,9 @@ if [ ! -d $BIN_DATA ]; then
 	mkdir -p $BIN_DATA
 fi
 
-if [ ! -d $BPE_MODEL ]; then
-	mkdir -p $BPE_MODEL
-fi
+# if [ ! -d $BPE_MODEL ]; then
+# 	mkdir -p $BPE_MODEL
+# fi
 
 # subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/model.vi
 # subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
