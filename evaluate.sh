@@ -11,17 +11,17 @@ DETRUECASER=$MOSES/recaser/detruecase.perl
 DATA_FOLDER=$PWD/data
 PROCESSED_DATA=$DATA_FOLDER/processed-data
 
-if [ $NUM -gt 1 ]; then
-	echo "$NUM"
-	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
-	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
-fi
+# if [ $NUM -gt 1 ]; then
+echo "$NUM"
+BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-${NUM}
+BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
+# fi
 
-if [ $NUM -eq 1 ]; then
-	echo "$NUM default"
-	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
-	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
-fi
+# if [ $NUM -eq 1 ]; then
+# 	echo "$NUM default"
+# 	BIN_DATA=$DATA_FOLDER/new-data-random/bin-data
+# 	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
+# fi
 
 if [ $NUM -eq 0 ]; then
 	echo "$NUM base"
