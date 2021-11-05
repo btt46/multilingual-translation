@@ -36,7 +36,7 @@ for lang in en vi; do
     echo "[$lang]..."
     for SET in $DATA_NAME; do
         echo "${SET}..."
-        subword-nmt apply-bpe -c ${BPE_MODEL}/model.${lang} < ${TRUECASED_DATA}/${SET}.${lang} > ${BPE_DATA}/${SET}.${lang} 
+        subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${TRUECASED_DATA}/${SET}.${lang} > ${BPE_DATA}/${SET}.${lang} 
     done
 done
 
