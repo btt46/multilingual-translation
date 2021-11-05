@@ -42,10 +42,10 @@ done
 
 # binarize train/valid/test
 
-fairseq-preprocess -s ${SRC} -t ${TGT} \
-			--destdir $BIN_DATA \
-			--trainpref $BPE_DATA/train \
-			--validpref $BPE_DATA/valid \
-			--testpref $BPE_DATA/test \
-			--joined-dictionary \
-			--workers 32 
+# fairseq-preprocess -s ${SRC} -t ${TGT} \
+# 			--destdir $BIN_DATA \
+# 			--trainpref $BPE_DATA/train \
+# 			--validpref $BPE_DATA/valid \
+# 			--testpref $BPE_DATA/test \
+# 			--joined-dictionary \
+# 			--workers 32 
