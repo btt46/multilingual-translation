@@ -64,16 +64,27 @@ fi
 echo "${TAG}"
 
 cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
-								
-CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-            --input ${TRANSLATION_DATA}/translation.${SRC} \
-            --sampling \
-            --seed ${SEED} \
-            --sampling-topk -1 \
-            --nbest 1\
-            --beam 1\
-		--temperature ${TEMP} \
-            --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
+			
+if [ $NUM -gt 0 ]; then		
+      echo "random"			
+      CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+                  --input ${TRANSLATION_DATA}/translation.${SRC} \
+                  --sampling \
+                  --seed ${SEED} \
+                  --sampling-topk -1 \
+                  --nbest 1\
+                  --beam 1\
+      		--temperature ${TEMP} \
+                  --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
+fi
+
+if [ $NUM -eq 0 ]; then     
+      echo "beam"                    
+      CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+                  --input ${TRANSLATION_DATA}/translation.${SRC} \
+                  --beam 5 \
+                  --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
+fi
 
 #####
 # (update)
