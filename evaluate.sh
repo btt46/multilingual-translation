@@ -23,7 +23,7 @@ BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data-${NUM}
 # 	BPE_DATA=$DATA_FOLDER/new-data-random/bpe-data
 # fi
 
-if [ $NUM -eq 0 ]; then
+if [ $NUM -lt 0 ]; then
 	echo "$NUM base"
 	BIN_DATA=$DATA_FOLDER/bin-data
 	BPE_DATA=$DATA_FOLDER/bpe-data

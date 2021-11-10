@@ -88,6 +88,7 @@ fi
 
 #####
 # (update)
+## model.bi.BT0.new seed: 0 temperature 0.0 beam-search
 ## model.bi.BT1.new seed: 10011 temperature 0.8
 ## model.bi.BT2.new seed: 10012 temperature 0.7
 ## model.bi.BT3.new seed: 10013 temperature 0.6
