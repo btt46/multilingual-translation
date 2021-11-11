@@ -18,7 +18,7 @@ def addTag(file_name,p1,p2,tag_1,tag_2):
 		if (count > p2): 
 			count = 1
 
-	with open(file_name,"r",encoding="utf-8") as fp:
+	with open(file_name,"w",encoding="utf-8") as fp:
 		fp.writelines(addTag_content)
 		fp.close()
 
