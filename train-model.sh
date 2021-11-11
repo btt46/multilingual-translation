@@ -45,7 +45,7 @@ fi
 
 if [ $FLAG -eq 0 ]; then
 	echo "bi ${MODEL}"
-	DATA=$PWD/data/new-data-random/bin-data-${NUM}	
+	DATA=$PWD/data/bin-data
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
 				--log-format json \
