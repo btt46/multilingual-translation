@@ -38,9 +38,9 @@ def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_fil
 		print("2 files have not the same size")
 		exit()
 
-	if len(file_content_3) != len(file_content_4):
-		print("2 files have not the same size")
-		exit()
+	# if len(file_content_3) != len(file_content_4):
+	# 	print("2 files have not the same size")
+	# 	exit()
 
 	with open(source_file_name,"a",encoding="utf-8") as fp:
 		if type == "sentence":
@@ -82,9 +82,9 @@ def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_fil
 		print("2 files have not the same size")
 		exit()
 
-	if len(file_content_3) != len(file_content_4):
-		print("2 files have not the same size")
-		exit()
+	# if len(file_content_3) != len(file_content_4):
+	# 	print("2 files have not the same size")
+	# 	exit()
 
 	with open(target_file_name,"a",encoding="utf-8") as fp:
 		if type == "sentence":
