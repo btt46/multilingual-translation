@@ -29,4 +29,7 @@ if __name__=="__main__":
 	parser.add_argument("-t1", "--tag_1",help="ファイル名を入力してください")
 	parser.add_argument("-p2", "--position_2",help="ファイル名を入力してください")
 	parser.add_argument("-t2", "--tag_2",help="ファイル名を入力してください")
+
+	args = parser.parse_args() 
+	
 	addTag(args.file_name, int(args.position_1), int(args.position_2),args.tag_1, args.tag_2)
