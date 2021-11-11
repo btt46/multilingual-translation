@@ -12,7 +12,7 @@ def addTag(file_name,p1,p2,tag_1,tag_2):
 	for line in file_content:
 		if (count <= p1):
 			addTag_content.append(tag_1 + " " + line)
-		if (count > p1 && count <= p2):
+		if (count > p1 and count <= p2):
 			addTag_content.append(tag_2 + " " + line)
 		count += 1
 		if (count > p2): 
@@ -31,5 +31,5 @@ if __name__=="__main__":
 	parser.add_argument("-t2", "--tag_2",help="ファイル名を入力してください")
 
 	args = parser.parse_args() 
-	
+
 	addTag(args.file_name, int(args.position_1), int(args.position_2),args.tag_1, args.tag_2)
