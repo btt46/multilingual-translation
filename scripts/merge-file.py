@@ -34,31 +34,38 @@ def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_fil
 		file_content_4 = fp4.readlines()
 		fp4.close()
 
-	tagged_1 = addTag(file_name_1, file_content_1)
-	tagged_2 = addTag(file_name_2, file_content_2)
-	tagged_3 = addTag(file_name_3, file_content_3)
-	tagged_4 = addTag(file_name_4, file_content_4)
+	# tagged_1 = addTag(file_name_1, file_content_1)
+	# tagged_2 = addTag(file_name_2, file_content_2)
+	# tagged_3 = addTag(file_name_3, file_content_3)
+	# tagged_4 = addTag(file_name_4, file_content_4)
 
-	if len(tagged_1) != len(tagged_2):
+	# if len(tagged_1) != len(tagged_2):
+	# 	print("2 files have not the same size")
+	# 	exit()
+
+	# if len(tagged_3) != len(tagged_4):
+	# 	print("2 files have not the same size")
+	# 	exit()
+
+	if len(file_content_1) != len(file_content_2):
 		print("2 files have not the same size")
 		exit()
 
-	if len(tagged_3) != len(tagged_4):
+	if len(file_content_3) != len(file_content_4):
 		print("2 files have not the same size")
 		exit()
 
-	with open(source_file_name,"a",encoding="utf-8") as fp:
-		if type == "sentence":
-			for i in range(len(tagged_1)):
-				fp.write(tagged_1[i])
-				fp.write(tagged_2[i])
-				fp.write(tagged_3[i])
-				fp.write(tagged_4[i])
+	withif type == "sentence":
+		for i in range(len(file_content_1)):
+			fp.write(file_content_1[i])
+			fp.write(file_content_2[i])
+			fp.write(file_content_3[i])
+			fp.write(file_content_4[i])
 		if type == "all":
-			fp.write(target_1)
-			fp.write(target_2)
-			fp.write(target_3)
-			fp.write(target_4)
+			fp.write(file_content_1)
+			fp.write(file_content_2)
+			fp.write(file_content_3)
+			fp.write(file_content_4)
 		fp.close()
 
 
@@ -86,6 +93,11 @@ def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_fil
 	if len(file_content_1) != len(file_content_2):
 		print("2 files have not the same size")
 		exit()
+
+	if len(file_content_3) != len(file_content_4):
+		print("2 files have not the same size")
+		exit()
+		
 
 	with open(target_file_name,"a",encoding="utf-8") as fp:
 		if type == "sentence":
