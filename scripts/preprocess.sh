@@ -105,21 +105,24 @@ done
 # learn bpe model with training data
 if [ ! -d $BPE_MODEL ]; then  
   mkdir $BPE_MODEL
-  echo "=> LEARNING BPE MODEL: $BPE_MODEL"
-  subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
-					-s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
-					--write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
 fi
+
+echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+subword-nmt learn-joint-bpe-and-vocab --input ${PROCESSED_DATA}/train.src ${PROCESSED_DATA}/train.tgt \
+				-s $BPESIZE -o $BPE_MODEL/code.${BPESIZE}.bpe \
+				--write-vocabulary $BPE_MODEL/train.src.vocab $BPE_MODEL/train.tgt.vocab 
+
 
 # apply sub-word segmentation
 if [ ! -d $BPE_DATA ]; then
     mkdir $BPE_DATA
-
-    for SET in $DATA_NAME; do
-        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.src > $BPE_DATA/${SET}.src 
-        subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.tgt > $BPE_DATA/${SET}.tgt
-    done
 fi
+
+for SET in $DATA_NAME; do
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.src > $BPE_DATA/${SET}.src 
+    subword-nmt apply-bpe -c $BPE_MODEL/code.${BPESIZE}.bpe < ${PROCESSED_DATA}/${SET}.tgt > $BPE_DATA/${SET}.tgt
+done
+
 
 for SET in $DATA_NAME; do
     python3.6 $SCRIPTS/addTag.py -f $BPE_DATA/${SET}.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
