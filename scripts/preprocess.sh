@@ -96,13 +96,9 @@ done
 # prepare data for the bidirectional model
 echo "=> PREPROCESSING en <> vi DATA: $PWD....."
 for SET in $DATA_NAME ; do
-    # cat ${TRUECASED_DATA}/${SET}.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
-    # cat ${TRUECASED_DATA}/${SET}.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >> ${PROCESSED_DATA}/${SET}.src
-
-    # cat ${TRUECASED_DATA}/${SET}.vi  >> ${PROCESSED_DATA}/${SET}.tgt
-    # cat ${TRUECASED_DATA}/${SET}.en  >> ${PROCESSED_DATA}/${SET}.tgt
     python3.6 $SCRIPTS/merge-file.py -s1 ${TRUECASED_DATA}/${SET}.en -s2 ${TRUECASED_DATA}/${SET}.vi -msrc ${PROCESSED_DATA}/${SET}.src \
-                                     -t1 ${TRUECASED_DATA}/${SET}.vi -t2 ${TRUECASED_DATA}/${SET}.en -mtgt ${PROCESSED_DATA}/${SET}.tgt
+                                     -t1 ${TRUECASED_DATA}/${SET}.vi -t2 ${TRUECASED_DATA}/${SET}.en -mtgt ${PROCESSED_DATA}/${SET}.tgt \
+                                     -t "sentence"
 
 done
 
