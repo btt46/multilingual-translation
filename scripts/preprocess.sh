@@ -122,7 +122,7 @@ if [ ! -d $BPE_DATA ]; then
 fi
 
 for SET in $DATA_NAME; do
-    python3.6 $SCRIPTS/addTag.py -f $BPE_DATA/${SET}.src -p1 1 -t1 "<e2v>" -p2 2 -t "<v2e>" 
+    python3.6 $SCRIPTS/addTag.py -f $BPE_DATA/${SET}.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
 done
 
 # binarize train/valid/test
