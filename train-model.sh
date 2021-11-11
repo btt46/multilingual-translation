@@ -6,15 +6,16 @@ NUM=$3
 EPOCHS=$4
 FLAG=$5
 echo "GPU=${GPUS}"
-DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 MODEL=$PWD/models/${MODEL_NAME}
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
-PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 if [ $FLAG -gt 0 ]; then
+	DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 	echo "bi+BT ${MODEL}"
+	PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
+
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
 				--log-format json \
@@ -44,6 +45,7 @@ fi
 
 if [ $FLAG -eq 0 ]; then
 	echo "bi ${MODEL}"
+	DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
 				--log-format json \
