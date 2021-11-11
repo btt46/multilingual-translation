@@ -14,6 +14,7 @@ LOG=$PWD/log
 PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
 
 if [ $FLAG -gt 0 ]; then
+	echo "bi+BT ${MODEL}"
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
 				--log-format json \
@@ -42,6 +43,7 @@ if [ $FLAG -gt 0 ]; then
 fi
 
 if [ $FLAG -eq 0 ]; then
+	echo "bi ${MODEL}"
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
 				--log-format json \
