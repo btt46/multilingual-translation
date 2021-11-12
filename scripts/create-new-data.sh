@@ -95,8 +95,8 @@ fi
 ## model.bi.BT4.new seed: 10014 temperature 0.4
 ## model.bi.BT5.new seed: 10015 temperature 0.5
 ## model.bi.BT6.new seed: 10016 temperature 0.6
-## model.bi.BT6.new seed: 10016 temperature 0.7
-## model.bi.BT6.new seed: 10016 temperature 0.8
+## model.bi.BT6.new seed: 10017 temperature 0.7
+## model.bi.BT6.new seed: 10018 temperature 0.8
 
 ########3
 # (old)
