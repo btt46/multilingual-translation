@@ -145,6 +145,10 @@ for SET in $DATA_NAME; do
     subword-nmt apply-bpe -c ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.tgt > ${NEW_BPE_DATA}/${SET}.tgt
 done
 
+for SET in $DATA_NAME; do
+    python3.6 $SCRIPTS/addTag.py -f ${NEW_BPE_DATA}/${SET}.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
+done
+
 
 # binarize train/valid/test
 
