@@ -27,7 +27,7 @@ MERGE_FILE=$PWD/scripts/merge-file.py
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
-# rm -rf $NEW_PROCESSED_DATA
+rm -rf $NEW_PROCESSED_DATA
 rm -rf $NEW_BIN_DATA
 
 mkdir -p $NEW_DATA_FOLDER
@@ -62,7 +62,7 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
 					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
 					  -t1 ${NEW_DATA}/train.vi.${NUM} -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t sentence
+					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
 
 
 ##mode_03
