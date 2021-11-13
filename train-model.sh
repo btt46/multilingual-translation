@@ -11,7 +11,7 @@ mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
 
-if [ $FLAG -gt 0 ]; then
+if [ $FLAG -ge 0 ]; then
 	DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 	echo "bi+BT ${MODEL}"
 	PRETRAINED_MODEL=$PWD/models/model.bi/checkpoint_best.pt
@@ -43,7 +43,7 @@ if [ $FLAG -gt 0 ]; then
 				2>&1 | tee $LOG/log.train.${MODEL_NAME}
 fi
 
-if [ $FLAG -eq 0 ]; then
+if [ $FLAG -lt 0 ]; then
 	echo "bi ${MODEL}"
 	DATA=$PWD/data/bin-data
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
