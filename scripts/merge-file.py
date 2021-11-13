@@ -17,6 +17,8 @@ def addTag(file_name, file_content):
 def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_file_name,type):
 	file_content_1 = []
 	file_content_2 = []
+	file_content_3 = []
+	file_content_4 = []
 
 	with open(file_name_1,"r",encoding="utf-8") as fp1:
 		file_content_1 = fp1.readlines()
@@ -47,13 +49,13 @@ def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_fil
 			for i in range(len(file_content_1)):
 				fp.write(file_content_1[i])
 				fp.write(file_content_2[i])
-				# fp.write(file_content_3[i])
-				# fp.write(file_content_4[i])
+				fp.write(file_content_3[i])
+				fp.write(file_content_4[i])
 		if type == "all":
 			fp.write(file_content_1)
 			fp.write(file_content_2)
-			# fp.write(file_content_3)
-			# fp.write(file_content_4)
+			fp.write(file_content_3)
+			fp.write(file_content_4)
 		fp.close()
 
 
@@ -61,6 +63,8 @@ def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_fil
 def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_file_name,type):
 	file_content_1 = []
 	file_content_2 = []
+	file_content_3 = []
+	file_content_4 = []
 
 	with open(file_name_1,"r",encoding="utf-8") as fp1:
 		file_content_1 = fp1.readlines()
@@ -91,13 +95,13 @@ def writeToTargetFile(file_name_1,file_name_2,file_name_3,file_name_4,target_fil
 			for i in range(len(file_content_1)):
 				fp.write(file_content_1[i])
 				fp.write(file_content_2[i])
-				# fp.write(file_content_3[i])
-				# fp.write(file_content_4[i])
+				fp.write(file_content_3[i])
+				fp.write(file_content_4[i])
 		if type == "all":
 			fp.write(file_content_1)
 			fp.write(file_content_2)
-			# fp.write(file_content_3)
-			# fp.write(file_content_4)
+			fp.write(file_content_3)
+			fp.write(file_content_4)
 		fp.close()
 
 if __name__=="__main__":
