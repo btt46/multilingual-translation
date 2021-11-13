@@ -146,7 +146,7 @@ for SET in $DATA_NAME; do
 done
 
 for SET in $DATA_NAME; do
-    python3.6 $SCRIPTS/addTag.py -f ${NEW_BPE_DATA}/${SET}.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
+    python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/${SET}.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
 done
 
 
