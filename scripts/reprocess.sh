@@ -27,12 +27,13 @@ MERGE_FILE=$PWD/scripts/merge-file.py
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
 
-{
+if [ -d $NEW_PROCESSED_DATA ]; then
 	rm  -rf $NEW_PROCESSED_DATA
-	rm  -rf $NEW_BIN_DATA
-} || {
+fi 
 
-}
+if [ -d $NEW_BIN_DATA ]; then
+	rm  -rf $NEW_BIN_DATA
+fi
 
 mkdir -p $NEW_DATA_FOLDER
 mkdir -p $NEW_DATA
