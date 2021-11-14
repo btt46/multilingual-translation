@@ -3,6 +3,7 @@ set -e
 
 BPESIZE=5000
 NUM=$1
+CHOOSE_BPE=$2
 # the directories for new data 
 DATA_FOLDER=$PWD/data
 NEW_DATA_FOLDER=$DATA_FOLDER/new-data-random
@@ -55,10 +56,12 @@ for SET in $DATA_NAME ; do
 done
 
 cat ${TRANSLATION_DATA}/translation.vi | sed -r 's/(@@ )|(@@ ?$)|(<v2e> )//g'  > ${NEW_DATA}/train.vi.${NUM}
-
+# cat  ${NEW_DATA}/new.en | awk -vtgt_tag="<e2v>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+# cat $NEW_DATA/train.vi >> $NEW_PROCESSED_DATA/train.tgt
 
 cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  > ${NEW_DATA}/train.en.${NUM}
-
+# cat  ${NEW_DATA}/new.vi | awk -vtgt_tag="<v2e>" '{ print tgt_tag" "$0 }' >>  $NEW_PROCESSED_DATA/train.src
+# cat $NEW_DATA/train.en >> $NEW_PROCESSED_DATA/train.tgt
 
 ##train: real, new:synthetic
 
@@ -70,19 +73,29 @@ python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.
 
 
 
-# apply sub-word segmentation
 
 DATA_NAME="train valid test"
-# for SET in $DATA_NAME; do
-#     subword-nmt apply-bpe -c ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.src > ${NEW_BPE_DATA}/${SET}.src 
-#     subword-nmt apply-bpe -c ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.tgt > ${NEW_BPE_DATA}/${SET}.tgt
-# done
 
-for SET in $DATA_NAME; do
-    subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.src > ${NEW_BPE_DATA}/${SET}.src 
-    subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.tgt > ${NEW_BPE_DATA}/${SET}.tgt
-done
+# apply sub-word segmentation
+if [ $CHOOSE_BPE -eq 0 ]; then
 
+	echo "=> LEARNING BPE MODEL: $BPE_MODEL"
+	subword-nmt learn-joint-bpe-and-vocab --input ${NEW_PROCESSED_DATA}/train.src ${NEW_PROCESSED_DATA}/train.tgt \
+					-s $BPESIZE -o ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe \
+					--write-vocabulary ${NEW_BPE_MODEL}/train.src.vocab ${NEW_BPE_MODEL}/train.tgt.vocab 
+
+	for SET in $DATA_NAME; do
+	    subword-nmt apply-bpe -c ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.src > ${NEW_BPE_DATA}/${SET}.src 
+	    subword-nmt apply-bpe -c ${NEW_BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.tgt > ${NEW_BPE_DATA}/${SET}.tgt
+	done
+fi
+
+if [ $CHOOSE_BPE -eq 1 ]; then
+	for SET in $DATA_NAME; do
+	    subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.src > ${NEW_BPE_DATA}/${SET}.src 
+	    subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_PROCESSED_DATA}/${SET}.tgt > ${NEW_BPE_DATA}/${SET}.tgt
+	done
+fi
 
 python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
 
