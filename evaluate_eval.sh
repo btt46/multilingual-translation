@@ -53,13 +53,13 @@ HYP_VI=$TEST/hyp.vi.${NUM}
 VALID_HYP_EN=$TEST/dev_hyp.en.${NUM}
 VALID_HYP_VI=$TEST/dev_hyp.vi.${NUM}
 
-echo >  $TEST/${MODEL_NAME}.result
+echo >  $TEST/${MODEL_NAME}.eval.result
 
 ############################################################################################
 
 for i in 21 22 23 24 25 26 27 28 29 30
 do
-	echo "${MODEL_NAME}/checkpoint${i}.pt" >> $TEST/${MODEL_NAME}.result
+	echo "${MODEL_NAME}/checkpoint${i}.pt" >> $TEST/${MODEL_NAME}.eval.result
 	# The model used for evaluate
 	MODEL=$PWD/models/${MODEL_NAME}/checkpoint${i}.pt
 	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
@@ -86,13 +86,13 @@ do
 	python3.6 $DETOK $PWD/test/detruecase.en.${NUM} $HYP_EN
 
 	# English to Vietnamese
-	echo "TEST" >> $TEST/${MODEL_NAME}.result
-	echo "En > Vi" >> $TEST/${MODEL_NAME}.result
-	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/${MODEL_NAME}.result
+	echo "TEST" >> $TEST/${MODEL_NAME}.eval.result
+	echo "En > Vi" >> $TEST/${MODEL_NAME}.eval.result
+	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/${MODEL_NAME}.eval.result
 
 	# Vietnamese to English
 	echo "Vi > En"  >> $TEST/${MODEL_NAME}.result
-	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.result
+	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.eval.result
 
 
 	####### DEV ######
@@ -120,13 +120,13 @@ do
 	python3.6 $DETOK $PWD/test/valid_detruecase.en.${NUM} $VALID_HYP_EN
 
 	# English to Vietnamese
-	echo "VALID" >> $TEST/${MODEL_NAME}.result
-	echo "En > Vi" >> $TEST/${MODEL_NAME}.result
-	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $TEST/${MODEL_NAME}.result
+	echo "VALID" >> $TEST/${MODEL_NAME}.eval.result
+	echo "En > Vi" >> $TEST/${MODEL_NAME}.eval.result
+	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_VI < $VALID_HYP_VI >> $TEST/${MODEL_NAME}.eval.result
 
 	# Vietnamese to English
-	echo "Vi > En" >> $TEST/${MODEL_NAME}.result
-	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $TEST/${MODEL_NAME}.result
+	echo "Vi > En" >> $TEST/${MODEL_NAME}.eval.result
+	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF_EN < $VALID_HYP_EN >> $TEST/${MODEL_NAME}.eval.result
 done
 
 
