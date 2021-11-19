@@ -32,6 +32,7 @@ for i in 21 22 23 24 25 26 27 28 29 30
 do
 	# The model used for evaluate
 	MODEL=$PWD/models/${SRC}2${TGT}.model/checkpoint${i}.pt
+	echo "${MODEL}" >> $TEST/${SRC}2${TGT}.eval.result
 	CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
 	            --input $BPE_DATA/test.${SRC} \
 	            --path $MODEL \
