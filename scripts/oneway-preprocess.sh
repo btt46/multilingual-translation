@@ -41,7 +41,7 @@ for lang in en vi; do
     done
 done
 
-binarize train/valid/test
+
 
 fairseq-preprocess -s ${SRC} -t ${TGT} \
 			--destdir $BIN_DATA \
