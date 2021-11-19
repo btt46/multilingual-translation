@@ -34,6 +34,6 @@ CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s ${SRC} -t ${TGT} \
 			--share-decoder-input-output-embed \
 			--share-all-embeddings \
 			--save-dir $MODEL \
-			2>&1 | tee $LOG/log.train
+			2>&1 | tee $LOG/log.train.${MODEL_NAME}
 
 echo "TRAINING LOG: $LOG"
