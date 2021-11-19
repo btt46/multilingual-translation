@@ -47,7 +47,6 @@ do
 	python3.6 $DETOK ${TEST}/test.detruecase.${TGT} $TEST_HYP
 
 
-
 	# English to Vietnamese
 	echo "TEST" >> $TEST/${SRC}2${TGT}.eval.result
 	echo "${SRC} > ${TGT}" >> $TEST/${SRC}2${TGT}.eval.result
@@ -73,6 +72,6 @@ do
 	# English to Vietnamese
 	echo "VALID" >> $TEST/${SRC}2${TGT}.eval.result
 	echo "${SRC} > ${TGT}" >> $TEST/${SRC}2${TGT}.eval.result
-	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF < $VALID_HYP >> $TEST/${SRC}2{TGT}.eval.result
+	env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF < $VALID_HYP >> $TEST/${SRC}2${TGT}.eval.result
 done
 
