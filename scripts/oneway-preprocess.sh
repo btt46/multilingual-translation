@@ -12,6 +12,11 @@ BPE_DATA=$ONEWAYDATA/bpe-data
 BIN_DATA=$ONEWAYDATA/bin-data
 # BPE_MODEL=$DATA_FOLDER/bpe-model
 BPE_MODEL=$ONEWAYDATA/bpe-model
+
+if [ -d $BIN_DATA ]; then
+	rm  -rf $BIN_DATA
+fi
+
 if [ ! -d $ONEWAYDATA ]; then
 	mkdir -p $ONEWAYDATA
 fi 
