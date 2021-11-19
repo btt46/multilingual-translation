@@ -10,7 +10,8 @@ TRUECASED_DATA=$DATA_FOLDER/truecased
 ONEWAYDATA=$DATA_FOLDER/oneway
 BPE_DATA=$ONEWAYDATA/bpe-data
 BIN_DATA=$ONEWAYDATA/bin-data
-BPE_MODEL=$DATA_FOLDER/bpe-model
+# BPE_MODEL=$DATA_FOLDER/bpe-model
+BPE_MODEL=$ONEWAYDATA/bpe-model
 if [ ! -d $ONEWAYDATA ]; then
 	mkdir -p $ONEWAYDATA
 fi 
@@ -23,12 +24,12 @@ if [ ! -d $BIN_DATA ]; then
 	mkdir -p $BIN_DATA
 fi
 
-# if [ ! -d $BPE_MODEL ]; then
-# 	mkdir -p $BPE_MODEL
-# fi
+if [ ! -d $BPE_MODEL ]; then
+	mkdir -p $BPE_MODEL
+fi
 
-# subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/model.vi
-# subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
+subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.vi > ${BPE_MODEL}/model.vi
+subword-nmt learn-bpe -s ${BPESIZE} < ${TRUECASED_DATA}/train.en > ${BPE_MODEL}/model.en
 
 DATA_NAME="train valid test"
 
@@ -40,12 +41,11 @@ for lang in en vi; do
     done
 done
 
-# binarize train/valid/test
+binarize train/valid/test
 
-# fairseq-preprocess -s ${SRC} -t ${TGT} \
-# 			--destdir $BIN_DATA \
-# 			--trainpref $BPE_DATA/train \
-# 			--validpref $BPE_DATA/valid \
-# 			--testpref $BPE_DATA/test \
-# 			--joined-dictionary \
-# 			--workers 32 
+fairseq-preprocess -s ${SRC} -t ${TGT} \
+			--destdir $BIN_DATA \
+			--trainpref $BPE_DATA/train \
+			--validpref $BPE_DATA/valid \
+			--testpref $BPE_DATA/test \
+			--workers 32 

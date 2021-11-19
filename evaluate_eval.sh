@@ -91,7 +91,7 @@ do
 	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_VI < $HYP_VI >> $TEST/${MODEL_NAME}.eval.result
 
 	# Vietnamese to English
-	echo "Vi > En"  >> $TEST/${MODEL_NAME}.result
+	echo "Vi > En"  >> $TEST/${MODEL_NAME}.eval.result
 	env LC_ALL=en_US.UTF-8 perl $BLEU $REF_EN < $HYP_EN >> $TEST/${MODEL_NAME}.eval.result
 
 
