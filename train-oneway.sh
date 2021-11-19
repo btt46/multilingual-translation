@@ -5,7 +5,7 @@ SRC=$2
 TGT=$3
 echo "GPU=${GPUS}"
 DATA=$PWD/data/oneway/bin-data	
-MODEL=$PWD/models/${SRC}-${TGT}.model	
+MODEL=$PWD/models/${SRC}2${TGT}.model	
 mkdir -p $MODEL
 mkdir -p $PWD/log
 LOG=$PWD/log
