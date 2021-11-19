@@ -13,7 +13,7 @@ BPE_DATA=$DATA_FOLDER/oneway/bpe-data
 DETOK=$PWD/text-process/detokenize.py
 
 # The model used for evaluate
-MODEL=$PWD/models/${SRC}-${TGT}.model/checkpoint_best.pt
+MODEL=$PWD/models/${SRC}2${TGT}.model/checkpoint_best.pt
 
 
 BLEU=$PWD/multi-bleu.perl
@@ -28,7 +28,7 @@ TEST_REF=$DATA_FOLDER/data/test.${TGT}
 VALID_HYP=$TEST/valid.hyp.${TGT}
 VALID_REF=$DATA_FOLDER/data/valid.${TGT}
 
-echo >  $TEST/${SRC}-${TGT}.result
+echo >  $TEST/${SRC}2${TGT}.result
 
 
 CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
@@ -48,9 +48,9 @@ python3.6 $DETOK ${TEST}/test.detruecase.${TGT} $TEST_HYP
 
 
 # English to Vietnamese
-echo "TEST" >> $TEST/${SRC}-${TGT}.result
-echo "${SRC} > ${TGT}" >> $TEST/${SRC}-${TGT}.result
-env LC_ALL=en_US.UTF-8 perl $BLEU $TEST_REF < $TEST_HYP >> $TEST/${SRC}-${TGT}.result
+echo "TEST" >> $TEST/${SRC}2${TGT}.result
+echo "${SRC} > ${TGT}" >> $TEST/${SRC}2${TGT}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $TEST_REF < $TEST_HYP >> $TEST/${SRC}2${TGT}.result
 
 
 
@@ -70,8 +70,8 @@ $DETRUECASER < ${TEST}/valid.result.${TGT} > ${TEST}/valid.detruecase.${TGT}
 python3.6 $DETOK ${TEST}/valid.detruecase.${TGT} $VALID_HYP
 
 # English to Vietnamese
-echo "VALID" >> $TEST/${SRC}-${TGT}.result
-echo "${SRC} > ${TGT}" >> $TEST/${SRC}-${TGT}.result
-env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF < $VALID_HYP >> $TEST/${SRC}-${TGT}.result
+echo "VALID" >> $TEST/${SRC}2${TGT}.result
+echo "${SRC} > ${TGT}" >> $TEST/${SRC}2${TGT}.result
+env LC_ALL=en_US.UTF-8 perl $BLEU $VALID_REF < $VALID_HYP >> $TEST/${SRC}2${TGT}.result
 
 
