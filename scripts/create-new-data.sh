@@ -27,8 +27,8 @@ NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model
 
 BIN_DATA=$DATA_FOLDER/bin-data
 
-ONEWAYDATA=$DATA_FOLDER/oneway
-BPE_DATA=$ONEWAYDATA/bpe-data
+UNIDATA=$DATA_FOLDER//unidirect-data
+BPE_DATA=$UNIDATA/bpe-data
 
 DATA_NAME="train valid test"
 TRUECASED_DATA=$DATA_FOLDER/truecased
