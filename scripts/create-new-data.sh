@@ -65,7 +65,7 @@ echo "${TAG}"
 
 cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
 			
-if [ $NUM -gt 0 ]; then		
+if [ $NUM -gt 0 ] && [ $NUM -lt 9 ] ; then		
       echo "random"			
       CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                   --input ${TRANSLATION_DATA}/translation.${SRC} \
@@ -86,6 +86,17 @@ if [ $NUM -eq 0 ]; then
                   --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
 fi
 
+if [ $NUM -ge 9 ] ; then
+      echo "beam IBT"  
+      MODEL=$PWD/models/model.bi.BT0/checkpoint26.pt
+      BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-0
+      CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+                  --input ${TRANSLATION_DATA}/translation.${SRC} \
+                  --beam 5 \
+                  --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
+
+fi
+
 #####
 # (update)
 ## model.bi.BT0.new seed: 0 temperature 0.0 beam-search
@@ -95,8 +106,9 @@ fi
 ## model.bi.BT4.new seed: 10014 temperature 0.4
 ## model.bi.BT5.new seed: 10015 temperature 0.5
 ## model.bi.BT6.new seed: 10016 temperature 0.6
-## model.bi.BT6.new seed: 10017 temperature 0.7
-## model.bi.BT6.new seed: 10018 temperature 0.8
+## model.bi.BT7.new seed: 10017 temperature 0.7
+## model.bi.BT8.new seed: 10018 temperature 0.8
+## model.bi.IBT0.new seed: 10019 temperature 0.0 beam-search
 
 ########3
 # (old)
@@ -107,14 +119,14 @@ fi
 ## model.bi.BT5 seed: 10005 temperature 0.4
 ## model.bi.BT6 seed: 10006 temperature 0.3
 
-grep ^H ${NEW_DATA}/result.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.${TGT}.${NUM}
+grep ^H ${NEW_DATA}/result.ibt.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.ibt.${TGT}.${NUM}
 
-cat ${NEW_DATA}/data.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT}.${NUM} 
+cat ${NEW_DATA}/data.ibt.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/ibt.new.tok.${TGT}.${NUM} 
 
 if [ "${SRC}" = "en" ] ; then
-	python3.6 $DETOK $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
+	python3.6 $DETOK $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
 fi
 
 if [ "${SRC}" = "vi" ] ; then
-	cp $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
+	cp $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
 fi
