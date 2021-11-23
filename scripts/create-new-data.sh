@@ -88,7 +88,7 @@ fi
 
 if [ $NUM -ge 9 ] ; then
       echo "beam IBT"  
-      MODEL=$PWD/models/model.bi.BT0/checkpoint26.pt
+      MODEL=$PWD/models/model.bi.BT0.new/checkpoint26.pt
       BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-0
       CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                   --input ${TRANSLATION_DATA}/translation.${SRC} \
