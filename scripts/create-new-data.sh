@@ -29,6 +29,7 @@ BIN_DATA=$DATA_FOLDER/bin-data
 
 UNIDATA=$DATA_FOLDER/unidirect-data
 BPE_DATA=$UNIDATA/bpe-data
+BPE_MODEL=$DATA_FOLDER/bpe-model
 
 DATA_NAME="train valid test"
 TRUECASED_DATA=$DATA_FOLDER/truecased
@@ -65,10 +66,9 @@ echo "${TAG}"
 
 
 if [ $NUM -lt 9 ]; then
-			
+      cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}		
       if [ $NUM -gt 0 ] ; then		
             echo "random"			
-            cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
             CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                         --input ${TRANSLATION_DATA}/translation.${SRC} \
                         --sampling \
@@ -107,8 +107,12 @@ if [ $NUM -ge 9 ] ; then
       echo "beam IBT"  
       MODEL=$PWD/models/model.bi.BT0.new/checkpoint26.pt
       BIN_DATA=$DATA_FOLDER/new-data-random/bin-data-0
+      subword-nmt apply-bpe -c ${BPE_MODEL}/code.${BPESIZE}.bpe < ${NEW_DATA}/new.${SRC}.0 > ${NEW_DATA}/ibt.bpe.translation.${SRC}.${NUM}
+
+      cat ${NEW_DATA}/ibt.bpe.translation.${SRC}.${NUM} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${NEW_DATA}/ibt.translation.${SRC}.${NUM}  
+
       CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-                  --input ${TRANSLATION_DATA}/translation.${SRC} \
+                  --input ${NEW_DATA}/ibt.translation.${SRC}.${NUM}   \
                   --beam 5 \
                   --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
 
