@@ -82,7 +82,7 @@ if [ $NUM -ge 9 ] ; then
 						  -s5 ${TRUECASED_DATA}/train.vi -s6 ${NEW_DATA}/ibt.new.vi.${NUM} -msrc ${NEW_PROCESSED_DATA}/train.src \
 						  -t1 ${NEW_DATA}/train.vi.0 -t2 ${TRUECASED_DATA}/train.vi \
 						  -t3 ${NEW_DATA}/new.vi.0 -t4 ${NEW_DATA}/train.en.0 \
-						  -t5 ${NEW_DATA}/train.en -t6 ${TRUECASED_DATA}/new.en.0 -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+						  -t5 ${TRUECASED_DATA}/train.en -t6 ${NEW_DATA}/new.en.0 -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
 fi
 
 DATA_NAME="train valid test"
