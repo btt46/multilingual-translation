@@ -21,10 +21,11 @@ NEW_BPE_MODEL=$NEW_DATA_FOLDER/bpe-model-${NUM}
 BIN_DATA=$DATA_FOLDER/bin-data
 BPE_MODEL=$DATA_FOLDER/bpe-model
 
-ONEWAYDATA=$DATA_FOLDER/oneway
-BPE_DATA=$ONEWAYDATA/bpe-data
+UNIDATA=$DATA_FOLDER/unidirect-data
+BPE_DATA=$UNIDATA/bpe-data
 
 MERGE_FILE=$PWD/scripts/merge-file.py
+MERGE_FILE=$PWD/scripts/merge-ibt.py
 
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
@@ -66,13 +67,23 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 ##train: real, new:synthetic
 
 #model_02
-python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
-					  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
-					  -t1 ${NEW_DATA}/train.vi.${NUM} -t2 ${TRUECASED_DATA}/train.vi \
-					  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+if [ $NUM-lt 9 ] ; then
+	echo "back translation"
+	python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
+						  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
+						  -t1 ${NEW_DATA}/train.vi.${NUM} -t2 ${TRUECASED_DATA}/train.vi \
+						  -t3 ${NEW_DATA}/train.en.${NUM} -t4 ${TRUECASED_DATA}/train.en -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+fi
 
-
-
+if [ $NUM -ge 9 ] ; then
+	echo "iterative back translation"
+	python3.6 $MERGE_IBT -s1 ${NEW_DATA}/new.en.0 -s2 ${TRUECASED_DATA}/train.en \
+						  -s3 ${NEW_DATA}/ibt.new.en.${NUM} -s4 ${NEW_DATA}/new.vi.0 \
+						  -s5 ${TRUECASED_DATA}/train.vi -s6 ${NEW_DATA}/ibt.new.vi.${NUM} -msrc ${NEW_PROCESSED_DATA}/train.src \
+						  -t1 ${NEW_DATA}/train.vi.0 -t2 ${TRUECASED_DATA}/train.vi \
+						  -t3 ${NEW_DATA}/train.vi.${NUM} -t4 ${NEW_DATA}/train.en.0 \
+						  -t5 ${NEW_DATA}/train.en -t6 ${TRUECASED_DATA}/train.en.${NUM} -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+fi
 
 DATA_NAME="train valid test"
 
@@ -97,12 +108,25 @@ if [ $CHOOSE_BPE -eq 1 ]; then
 	done
 fi
 
-python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
+if [ $NUM -lt 9 ]; then
 
-python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
 
-python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/test.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
 
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/test.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+
+fi
+
+if [ $NUM -ge 9 ]; then
+
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 3 -t1 "<e2v>" -p2 6 -t2 "<v2e>" 
+
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+
+	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/test.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
+
+fi
 
 # binarize train/valid/test
 

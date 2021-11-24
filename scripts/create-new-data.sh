@@ -63,28 +63,45 @@ fi
 
 echo "${TAG}"
 
-cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
-			
-if [ $NUM -gt 0 ] && [ $NUM -lt 9 ] ; then		
-      echo "random"			
-      CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-                  --input ${TRANSLATION_DATA}/translation.${SRC} \
-                  --sampling \
-                  --seed ${SEED} \
-                  --sampling-topk -1 \
-                  --nbest 1\
-                  --beam 1\
-      		--temperature ${TEMP} \
-                  --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
-fi
 
-if [ $NUM -eq 0 ]; then     
-      echo "beam"                    
-      CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-                  --input ${TRANSLATION_DATA}/translation.${SRC} \
-                  --beam 5 \
-                  --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
-fi
+if [ $NUM -lt 9 ]; then
+			
+      if [ $NUM -gt 0 ] ; then		
+            echo "random"			
+            cat ${BPE_DATA}/train.${SRC} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${TRANSLATION_DATA}/translation.${SRC}
+            CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+                        --input ${TRANSLATION_DATA}/translation.${SRC} \
+                        --sampling \
+                        --seed ${SEED} \
+                        --sampling-topk -1 \
+                        --nbest 1\
+                        --beam 1\
+            		--temperature ${TEMP} \
+                        --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
+      fi
+
+      if [ $NUM -eq 0 ]; then     
+            echo "beam"                    
+            CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+                        --input ${TRANSLATION_DATA}/translation.${SRC} \
+                        --beam 5 \
+                        --path $MODEL  | tee $NEW_DATA/result.${TGT}.${NUM}
+
+      fi
+
+      grep ^H ${NEW_DATA}/result.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.${TGT}.${NUM}
+
+      cat ${NEW_DATA}/data.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/new.tok.${TGT}.${NUM} 
+
+      if [ "${SRC}" = "en" ] ; then
+            python3.6 $DETOK $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
+      fi
+
+      if [ "${SRC}" = "vi" ] ; then
+            cp $NEW_DATA/new.tok.${TGT}.${NUM} $NEW_DATA/new.${TGT}.${NUM}
+      fi
+
+fi 
 
 if [ $NUM -ge 9 ] ; then
       echo "beam IBT"  
@@ -95,7 +112,21 @@ if [ $NUM -ge 9 ] ; then
                   --beam 5 \
                   --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
 
+
+      grep ^H ${NEW_DATA}/result.ibt.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.ibt.${TGT}.${NUM}
+
+      cat ${NEW_DATA}/data.ibt.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/ibt.new.tok.${TGT}.${NUM} 
+
+      if [ "${SRC}" = "en" ] ; then
+      	python3.6 $DETOK $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
+      fi
+
+      if [ "${SRC}" = "vi" ] ; then
+      	cp $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
+      fi
+
 fi
+
 
 #####
 # (update)
@@ -118,15 +149,3 @@ fi
 ## model.bi.BT4 seed: 10004 temperature 0.5
 ## model.bi.BT5 seed: 10005 temperature 0.4
 ## model.bi.BT6 seed: 10006 temperature 0.3
-
-grep ^H ${NEW_DATA}/result.ibt.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.ibt.${TGT}.${NUM}
-
-cat ${NEW_DATA}/data.ibt.${TGT}.${NUM}  | sed -r 's/(@@ )|(@@ ?$)//g'  > $NEW_DATA/ibt.new.tok.${TGT}.${NUM} 
-
-if [ "${SRC}" = "en" ] ; then
-	python3.6 $DETOK $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
-fi
-
-if [ "${SRC}" = "vi" ] ; then
-	cp $NEW_DATA/ibt.new.tok.${TGT}.${NUM} $NEW_DATA/ibt.new.${TGT}.${NUM}
-fi
