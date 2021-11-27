@@ -45,11 +45,11 @@ def writeToSourceFile(
 		file_content_4 = fp4.readlines()
 		fp4.close()
 
-	with open(file_name_5,"r",encoding="utf-8") as fp3:
+	with open(file_name_5,"r",encoding="utf-8") as fp5:
 		file_content_5 = fp5.readlines()
 		fp5.close()
 
-	with open(file_name_6,"r",encoding="utf-8") as fp4:
+	with open(file_name_6,"r",encoding="utf-8") as fp6:
 		file_content_6 = fp6.readlines()
 		fp6.close()
 
@@ -106,11 +106,11 @@ def writeToTargetFile(
 		file_content_4 = fp4.readlines()
 		fp4.close()
 
-	with open(file_name_5,"r",encoding="utf-8") as fp3:
+	with open(file_name_5,"r",encoding="utf-8") as fp5:
 		file_content_5 = fp5.readlines()
 		fp5.close()
 
-	with open(file_name_6,"r",encoding="utf-8") as fp4:
+	with open(file_name_6,"r",encoding="utf-8") as fp6:
 		file_content_6 = fp6.readlines()
 		fp6.close()
 
