@@ -77,7 +77,7 @@ fi
 if [ $NUM -ge 9 ]; then
 	DATA=$PWD/data/new-data-random/bin-data-${NUM}	
 	echo "bi+IBT ${MODEL}"
-	PRETRAINED_MODEL=$PWD/models/model.bi.BT0/checkpoint26.pt
+	PRETRAINED_MODEL=$PWD/models/model.bi.BT0.new/checkpoint26.pt
 
 	CUDA_VISIBLE_DEVICES=$GPUS fairseq-train $DATA -s src -t tgt \
 	            --log-interval 100 \
