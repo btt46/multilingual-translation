@@ -67,7 +67,7 @@ cat ${TRANSLATION_DATA}/translation.en | sed -r 's/(@@ )|(@@ ?$)|(<e2v> )//g'  >
 ##train: real, new:synthetic
 
 #model_02
-if [ $NUM-lt 9 ] ; then
+if [ $NUM -lt 9 ] ; then
 	echo "back translation"
 	python3.6 $MERGE_FILE -s1 ${NEW_DATA}/new.en.${NUM} -s2 ${TRUECASED_DATA}/train.en \
 						  -s3 ${NEW_DATA}/new.vi.${NUM} -s4 ${TRUECASED_DATA}/train.vi -msrc ${NEW_PROCESSED_DATA}/train.src \
