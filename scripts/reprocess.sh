@@ -25,7 +25,7 @@ UNIDATA=$DATA_FOLDER/unidirect-data
 BPE_DATA=$UNIDATA/bpe-data
 
 MERGE_FILE=$PWD/scripts/merge-file.py
-MERGE_FILE=$PWD/scripts/merge-ibt.py
+MERGE_IBT=$PWD/scripts/merge-ibt.py
 
 
 TRUECASED_DATA=$DATA_FOLDER/truecased
