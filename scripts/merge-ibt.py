@@ -14,7 +14,14 @@ def addTag(file_name, file_content):
 
 	return new_content
 
-def writeToSourceFile(file_name_1,file_name_2,file_name_3,file_name_4,source_file_name,type):
+def writeToSourceFile(
+	file_name_1,
+	file_name_2,
+	file_name_3,
+	file_name_4,
+	file_name_5,
+	file_name_6,
+	source_file_name,type):
 	file_content_1 = []
 	file_content_2 = []
 	file_content_3 = []
