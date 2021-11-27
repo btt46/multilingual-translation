@@ -110,6 +110,7 @@ fi
 
 if [ $NUM -lt 9 ]; then
 
+    echo "BT: add tags"
 	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 2 -t1 "<e2v>" -p2 4 -t2 "<v2e>" 
 
 	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
@@ -119,7 +120,7 @@ if [ $NUM -lt 9 ]; then
 fi
 
 if [ $NUM -ge 9 ]; then
-
+	echo "IBT: add tags"
 	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/train.src -p1 3 -t1 "<e2v>" -p2 6 -t2 "<v2e>" 
 
 	python3.6 $PWD/scripts/addTag.py -f ${NEW_BPE_DATA}/valid.src -p1 1 -t1 "<e2v>" -p2 2 -t2 "<v2e>" 
