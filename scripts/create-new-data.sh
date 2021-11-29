@@ -111,8 +111,15 @@ if [ $NUM -ge 9 ] ; then
 
       cat ${NEW_DATA}/ibt.bpe.translation.${SRC}.${NUM} | awk -vtgt_tag="${TAG}" '{ print tgt_tag" "$0 }' > ${NEW_DATA}/ibt.translation.${SRC}.${NUM}  
 
+      # NUM == 9
+      # CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+      #             --input ${NEW_DATA}/ibt.translation.${SRC}.${NUM}   \
+      #             --beam 5 \
+      #             --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
+
+      # NUM == 10
       CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
-                  --input ${NEW_DATA}/ibt.translation.${SRC}.${NUM}   \
+                  --input ${TRANSLATION_DATA}/translation.${SRC}   \
                   --beam 5 \
                   --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
 
