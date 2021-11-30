@@ -77,12 +77,23 @@ fi
 
 if [ $NUM -ge 9 ] ; then
 	echo "iterative back translation"
+	# NUM = 9
+	# python3.6 $MERGE_IBT -s1 ${NEW_DATA}/new.en.0 -s2 ${TRUECASED_DATA}/train.en \
+	# 					  -s3 ${NEW_DATA}/ibt.new.en.${NUM} -s4 ${NEW_DATA}/new.vi.0 \
+	# 					  -s5 ${TRUECASED_DATA}/train.vi -s6 ${NEW_DATA}/ibt.new.vi.${NUM} -msrc ${NEW_PROCESSED_DATA}/train.src \
+	# 					  -t1 ${NEW_DATA}/train.vi.0 -t2 ${TRUECASED_DATA}/train.vi \
+	# 					  -t3 ${NEW_DATA}/new.vi.0 -t4 ${NEW_DATA}/train.en.0 \
+	# 					  -t5 ${TRUECASED_DATA}/train.en -t6 ${NEW_DATA}/new.en.0 -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+
+	# NUM = 10
+	echo "NUM: ${NUM}"
 	python3.6 $MERGE_IBT -s1 ${NEW_DATA}/new.en.0 -s2 ${TRUECASED_DATA}/train.en \
 						  -s3 ${NEW_DATA}/ibt.new.en.${NUM} -s4 ${NEW_DATA}/new.vi.0 \
 						  -s5 ${TRUECASED_DATA}/train.vi -s6 ${NEW_DATA}/ibt.new.vi.${NUM} -msrc ${NEW_PROCESSED_DATA}/train.src \
 						  -t1 ${NEW_DATA}/train.vi.0 -t2 ${TRUECASED_DATA}/train.vi \
-						  -t3 ${NEW_DATA}/new.vi.0 -t4 ${NEW_DATA}/train.en.0 \
-						  -t5 ${TRUECASED_DATA}/train.en -t6 ${NEW_DATA}/new.en.0 -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+						  -t3 ${NEW_DATA}/train.vi.${NUM} -t4 ${NEW_DATA}/train.en.0 \
+						  -t5 ${TRUECASED_DATA}/train.en -t6 ${NEW_DATA}/train.en.${NUM} -mtgt ${NEW_PROCESSED_DATA}/train.tgt -t "sentence"
+
 fi
 
 DATA_NAME="train valid test"
