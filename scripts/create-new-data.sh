@@ -117,11 +117,25 @@ if [ $NUM -ge 9 ] ; then
       #             --beam 5 \
       #             --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
 
-      # NUM == 10
+      # # NUM == 10
+      # CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
+      #             --input ${TRANSLATION_DATA}/translation.${SRC}   \
+      #             --beam 5 \
+      #             --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
+
+
+      # NUM == 11
       CUDA_VISIBLE_DEVICES=$GPUS env LC_ALL=en_US.UTF-8 fairseq-interactive $BIN_DATA \
                   --input ${TRANSLATION_DATA}/translation.${SRC}   \
-                  --beam 5 \
+                   --sampling \
+                  --seed ${SEED} \
+                  --sampling-topk -1 \
+                  --nbest 1\
+                  --beam 1\
+                  --temperature ${TEMP} \
                   --path $MODEL  | tee $NEW_DATA/result.ibt.${TGT}.${NUM}
+
+
 
 
       grep ^H ${NEW_DATA}/result.ibt.${TGT}.${NUM} | cut -f3 > ${NEW_DATA}/data.ibt.${TGT}.${NUM}
