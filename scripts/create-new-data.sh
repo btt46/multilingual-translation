@@ -165,6 +165,7 @@ fi
 ## model.bi.BT7.new seed: 10017 temperature 0.7
 ## model.bi.BT8.new seed: 10018 temperature 0.8
 ## model.bi.IBT0.new seed: 10019 temperature 0.0 beam-search
+## model.bi.IBT2.random seed: 10020 temperature 0.3 
 
 ########3
 # (old)
